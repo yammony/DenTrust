@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DenTrust</title>
+<style>
+  :root{
+    --primary: #0d6efd;
+    --primary-dark: #0b4fb5;
+    --primary-light: #e8f1ff;
+    --white: #ffffff;
+    --text: #1c2b3a;
+    --muted: #6b7c93;
+    --border: #dce6f5;
+    --shadow: 0 8px 24px rgba(13,110,253,0.12);
+  }
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family: ‘Tahoma’, ‘Segoe UI’, Arial, sans-serif;
+background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 100%);
+color: var(–text);
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* ===== Header ===== */
+header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+background: var(–white);
+padding: 14px 20px;
+box-shadow: 0 2px 12px rgba(13,110,253,0.08);
+position: sticky;
+top:0;
+z-index: 100;
+}
+
+.header-side{
+display:flex;
+align-items:center;
+min-width: 90px;
+}
+
+.logo{
+font-size: 26px;
+font-weight: 800;
+color: var(–primary);
+letter-spacing: 0.5px;
+text-align:center;
+flex:1;
+}
+
+.logo span{
+color: var(–primary-dark);
+}
+
+.login-btn{
+background: var(–primary);
+color: var(–white);
+border:none;
+padding: 9px 20px;
+border-radius: 30px;
+font-size: 15px;
+cursor:pointer;
+font-weight:600;
+transition: all 0.25s ease;
+box-shadow: 0 4px 10px rgba(13,110,253,0.25);
+}
+.login-btn:hover{
+background: var(–primary-dark);
+transform: translateY(-1px);
+}
+
+.hamburger{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:5px;
+width: 42px;
+height: 42px;
+background: var(–primary-light);
+border:none;
+border-radius: 10px;
+cursor:pointer;
+margin-right:auto;
+}
+.hamburger span{
+width: 22px;
+height: 3px;
+background: var(–primary);
+border-radius: 2px;
+transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+
+/* ===== Hero / Main content ===== */
+.hero{
+text-align:center;
+padding: 80px 20px;
+}
+.hero h1{
+font-size: 34px;
+color: var(–primary-dark);
+margin-bottom: 16px;
+}
+.hero p{
+color: var(–muted);
+font-size: 17px;
+max-width: 560px;
+margin: 0 auto;
+line-height:1.8;
+}
+.hero-icon{
+font-size: 60px;
+margin-bottom: 20px;
+}
+
+/* ===== Overlay ===== */
+.overlay{
+position: fixed;
+inset:0;
+background: rgba(10,30,60,0.45);
+opacity:0;
+visibility:hidden;
+transition: opacity 0.3s ease;
+z-index: 200;
+}
+.overlay.show{
+opacity:1;
+visibility:visible;
+}
+
+/* ===== Modal (Login) ===== */
+.modal{
+position: fixed;
+top:50%;
+left:50%;
+transform: translate(-50%,-40%);
+background: var(–white);
+width: 92%;
+max-width: 400px;
+border-radius: 18px;
+padding: 30px 26px;
+box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+z-index: 300;
+opacity:0;
+visibility:hidden;
+transition: all 0.35s ease;
+}
+.modal.show{
+opacity:1;
+visibility:visible;
+transform: translate(-50%,-50%);
+}
+
+.modal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom: 22px;
+}
+.modal-header h2{
+color: var(–primary-dark);
+font-size: 20px;
+}
+.close-btn{
+background: var(–primary-light);
+border:none;
+width: 32px;
+height:32px;
+border-radius:50%;
+font-size: 18px;
+color: var(–primary);
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition: background 0.2s;
+}
+.close-btn:hover{ background:#d3e4fb; }
+
+.modal-step{ display:none; }
+.modal-step.active{ display:block; animation: fadeIn 0.35s ease; }
+
+@keyframes fadeIn{
+from{ opacity:0; transform: translateY(8px); }
+to{ opacity:1; transform: translateY(0); }
+}
+
+.field-label{
+display:block;
+font-size: 14px;
+color: var(–muted);
+margin-bottom: 8px;
+}
+
+.phone-input-wrap{
+display:flex;
+align-items:center;
+border: 1.5px solid var(–border);
+border-radius: 12px;
+padding: 6px 12px;
+margin-bottom: 18px;
+transition: border-color 0.2s;
+}
+.phone-input-wrap:focus-within{
+border-color: var(–primary);
+}
+.phone-input-wrap span{
+color: var(–muted);
+font-size: 15px;
+padding-left: 8px;
+border-left: 1px solid var(–border);
+margin-left: 8px;
+}
+.phone-input-wrap input{
+border:none;
+outline:none;
+flex:1;
+padding: 10px 6px;
+font-size: 16px;
+font-family: inherit;
+text-align: right;
+direction: ltr;
+}
+
+.otp-hint{
+font-size: 13.5px;
+color: var(–muted);
+margin-bottom: 18px;
+line-height: 1.7;
+}
+.otp-hint b{ color: var(–primary-dark); }
+
+.otp-inputs{
+display:flex;
+justify-content:center;
+gap: 10px;
+margin-bottom: 20px;
+direction: ltr;
+}
+.otp-inputs input{
+width: 46px;
+height: 52px;
+text-align:center;
+font-size: 20px;
+border: 1.5px solid var(–border);
+border-radius: 10px;
+outline:none;
+transition: border-color 0.2s;
+}
+.otp-inputs input:focus{
+border-color: var(–primary);
+}
+
+.primary-btn{
+width:100%;
+background: var(–primary);
+color: var(–white);
+border:none;
+padding: 13px;
+border-radius: 12px;
+font-size: 16px;
+font-weight: 700;
+cursor:pointer;
+transition: background 0.25s ease;
+}
+.primary-btn:hover{ background: var(–primary-dark); }
+
+.link-btn{
+display:block;
+width:100%;
+text-align:center;
+background:none;
+border:none;
+color: var(–primary);
+font-size: 14px;
+margin-top: 14px;
+cursor:pointer;
+font-weight:600;
+}
+.link-btn:hover{ text-decoration: underline; }
+
+.success-box{
+text-align:center;
+padding: 10px 0 4px;
+}
+.success-box .check{
+width: 70px;
+height: 70px;
+background: var(–primary-light);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size: 34px;
+color: var(–primary);
+margin: 0 auto 18px;
+}
+.success-box p{
+color: var(–muted);
+margin-bottom: 20px;
+font-size: 15px;
+}
+
+/* ===== Sidebar ===== */
+.sidebar{
+position: fixed;
+top:0;
+right:-320px;
+width: 300px;
+max-width: 85%;
+height:100%;
+background: var(–white);
+box-shadow: -6px 0 30px rgba(0,0,0,0.15);
+z-index: 250;
+transition: right 0.35s ease;
+display:flex;
+flex-direction:column;
+}
+.sidebar.open{
+right:0;
+}
+
+.sidebar-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding: 18px 20px;
+background: var(–primary);
+color: var(–white);
+}
+.sidebar-header h3{
+font-size: 18px;
+}
+.sidebar-header .close-btn{
+background: rgba(255,255,255,0.2);
+color: var(–white);
+}
+.sidebar-header .close-btn:hover{
+background: rgba(255,255,255,0.35);
+}
+
+.sidebar-content{
+overflow-y:auto;
+padding: 10px 0;
+flex:1;
+}
+
+.year-item{
+border-bottom: 1px solid var(–border);
+}
+.year-title{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding: 16px 20px;
+cursor:pointer;
+font-weight:700;
+color: var(–text);
+font-size: 15.5px;
+transition: background 0.2s;
+}
+.year-title:hover{
+background: var(–primary-light);
+}
+.year-title .arrow{
+color: var(–primary);
+transition: transform 0.3s ease;
+font-size: 13px;
+}
+.year-title.open .arrow{
+transform: rotate(180deg);
+}
+
+.chapters{
+max-height:0;
+overflow:hidden;
+transition: max-height 0.35s ease;
+background: #f7fafe;
+}
+.chapters.open{
+max-height: 200px;
+}
+.chapters a{
+display:block;
+padding: 13px 40px 13px 20px;
+color: var(–muted);
+text-decoration:none;
+font-size: 14.5px;
+border-top: 1px solid var(–border);
+transition: color 0.2s, background 0.2s;
+}
+.chapters a:hover{
+color: var(–primary-dark);
+background: var(–primary-light);
+}
+
+@media (max-width: 480px){
+.logo{ font-size: 21px; }
+.login-btn{ padding: 8px 14px; font-size: 13.5px; }
+.hero h1{ font-size: 26px; }
+.hero p{ font-size: 15px; }
+.otp-inputs input{ width: 40px; height: 46px; font-size: 18px; }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="header-side" style="justify-content:flex-start;">
+    <button class="login-btn" id="openLoginBtn">تسجيل الدخول</button>
+  </div>
+
+  <div class="logo">Den<span>Trust</span></div>
+
+  <div class="header-side" style="justify-content:flex-end;">
+    <button class="hamburger" id="hamburgerBtn" aria-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-icon">🦷</div>
+  <h1>مرحباً بك في DenTrust</h1>
+  <p>منصتك التعليمية الموثوقة لطلاب طب الأسنان. تصفح المحتوى الدراسي لكل سنة وفصل من خلال القائمة الجانبية، وسجل دخولك للوصول إلى كل المميزات.</p>
+</section>
+
+<!-- Overlay -->
+
+<div class="overlay" id="overlay"></div>
+
+<!-- Login Modal -->
+
+<div class="modal" id="loginModal">
+  <div class="modal-header">
+    <h2 id="modalTitle">تسجيل الدخول</h2>
+    <button class="close-btn" id="closeModalBtn">✕</button>
+  </div>
+
+  <!-- Step 1: Phone -->
+
+  <div class="modal-step active" id="stepPhone">
+    <label class="field-label">أدخل رقم هاتفك</label>
+    <div class="phone-input-wrap">
+      <span>+966</span>
+      <input type="tel" id="phoneInput" placeholder="5xxxxxxxx" maxlength="10">
+    </div>
+    <button class="primary-btn" id="sendCodeBtn">إرسال الكود</button>
+  </div>
+
+  <!-- Step 2: OTP -->
+
+  <div class="modal-step" id="stepOtp">
+    <p class="otp-hint">تم إرسال رمز التحقق إلى الرقم <b id="phoneDisplay"></b></p>
+    <div class="otp-inputs">
+      <input type="text" maxlength="1" inputmode="numeric">
+      <input type="text" maxlength="1" inputmode="numeric">
+      <input type="text" maxlength="1" inputmode="numeric">
+      <input type="text" maxlength="1" inputmode="numeric">
+    </div>
+    <button class="primary-btn" id="confirmOtpBtn">تأكيد</button>
+    <button class="link-btn" id="backToPhoneBtn">تعديل رقم الهاتف</button>
+  </div>
+
+  <!-- Step 3: Success -->
+
+  <div class="modal-step" id="stepSuccess">
+    <div class="success-box">
+      <div class="check">✓</div>
+      <p>تم تسجيل الدخول بنجاح!</p>
+      <button class="primary-btn" id="finishBtn">الانتقال للصفحة الرئيسية</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar -->
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>المحتوى الدراسي</h3>
+    <button class="close-btn" id="closeSidebarBtn">✕</button>
+  </div>
+  <div class="sidebar-content" id="sidebarContent"></div>
+</div>
+
+<script>
+  // ===== Data for sidebar =====
+  const years = [
+    "السنة الأولى",
+    "السنة الثانية",
+    "السنة الثالثة",
+    "السنة الرابعة",
+    "السنة الخامسة"
+  ];
+
+  const sidebarContent = document.getElementById('sidebarContent');
+
+  years.forEach((year, index) => {
+    const yearItem = document.createElement('div');
+    yearItem.className = 'year-item';
+
+    yearItem.innerHTML = `
+      <div class="year-title" data-index="${index}">
+        <span>${year}</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="chapters" id="chapters-${index}">
+        <a href="#">الفصل الأول</a>
+        <a href="#">الفصل الثاني</a>
+      </div>
+    `;
+    sidebarContent.appendChild(yearItem);
+  });
+
+  // Accordion behavior
+  sidebarContent.addEventListener('click', (e) => {
+    const title = e.target.closest('.year-title');
+    if(!title) return;
+
+    const index = title.getAttribute('data-index');
+    const chapters = document.getElementById('chapters-' + index);
+
+    const isOpen = chapters.classList.contains('open');
+
+    // close all others
+    document.querySelectorAll('.chapters').forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('.year-title').forEach(t => t.classList.remove('open'));
+
+    if(!isOpen){
+      chapters.classList.add('open');
+      title.classList.add('open');
+    }
+  });
+
+  // ===== Sidebar open/close =====
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+  function openSidebar(){
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+    hamburgerBtn.classList.add('active');
+  }
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    hamburgerBtn.classList.remove('active');
+    if(!loginModal.classList.contains('show')) overlay.classList.remove('show');
+  }
+
+  hamburgerBtn.addEventListener('click', () => {
+    if(sidebar.classList.contains('open')) closeSidebar();
+    else openSidebar();
+  });
+  closeSidebarBtn.addEventListener('click', closeSidebar);
+
+  // ===== Login Modal Logic =====
+  const loginModal = document.getElementById('loginModal');
+  const openLoginBtn = document.getElementById('openLoginBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+
+  const stepPhone = document.getElementById('stepPhone');
+  const stepOtp = document.getElementById('stepOtp');
+  const stepSuccess = document.getElementById('stepSuccess');
+  const modalTitle = document.getElementById('modalTitle');
+
+  const phoneInput = document.getElementById('phoneInput');
+  const phoneDisplay = document.getElementById('phoneDisplay');
+  const sendCodeBtn = document.getElementById('sendCodeBtn');
+  const backToPhoneBtn = document.getElementById('backToPhoneBtn');
+  const confirmOtpBtn = document.getElementById('confirmOtpBtn');
+  const finishBtn = document.getElementById('finishBtn');
+
+  const otpInputs = document.querySelectorAll('.otp-inputs input');
+
+  function openModal(){
+    loginModal.classList.add('show');
+    overlay.classList.add('show');
+    showStep(stepPhone, 'تسجيل الدخول');
+  }
+  function closeModal(){
+    loginModal.classList.remove('show');
+    if(!sidebar.classList.contains('open')) overlay.classList.remove('show');
+    // reset state after animation
+    setTimeout(() => {
+      phoneInput.value = '';
+      otpInputs.forEach(i => i.value = '');
+      showStep(stepPhone, 'تسجيل الدخول');
+    }, 300);
+  }
+
+  function showStep(step, title){
+    [stepPhone, stepOtp, stepSuccess].forEach(s => s.classList.remove('active'));
+    step.classList.add('active');
+    modalTitle.textContent = title;
+  }
+
+  openLoginBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', () => {
+    closeModal();
+    closeSidebar();
+  });
+
+  sendCodeBtn.addEventListener('click', () => {
+    const phone = phoneInput.value.trim();
+    if(phone.length < 9){
+      phoneInput.style.borderColor = '#e63946';
+      phoneInput.focus();
+      return;
+    }
+    phoneDisplay.textContent = '+966 ' + phone;
+    showStep(stepOtp, 'رمز التحقق');
+    setTimeout(() => otpInputs[0].focus(), 350);
+  });
+
+  backToPhoneBtn.addEventListener('click', () => {
+    showStep(stepPhone, 'تسجيل الدخول');
+  });
+
+  // OTP auto-focus behavior
+  otpInputs.forEach((input, idx) => {
+    input.addEventListener('input', () => {
+      input.value = input.value.replace(/[^0-9]/g, '');
+      if(input.value && idx < otpInputs.length - 1){
+        otpInputs[idx + 1].focus();
+      }
+    });
+    input.addEventListener('keydown', (e) => {
+      if(e.key === 'Backspace' && !input.value && idx > 0){
+        otpInputs[idx - 1].focus();
+      }
+    });
+  });
+
+  confirmOtpBtn.addEventListener('click', () => {
+    showStep(stepSuccess, 'تم بنجاح');
+  });
+
+  finishBtn.addEventListener('click', closeModal);
+
+  // Reset phone border color on typing
+  phoneInput.addEventListener('input', () => {
+    phoneInput.style.borderColor = '';
+  });
+</script>
+
+</body>
+</html>
