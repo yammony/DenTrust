@@ -1,569 +1,666 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DenTrust | مواد طب الأسنان الدراسية</title>
+<title>DenTrust</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #161616;
-    --ink-soft: #5b6570;
-    --line: #e3e8ee;
-    --surface: #f6f9fb;
-    --tint: #eef8ff;
-    --brand-blue: #0ea5e9;
-    --brand-blue-deep: #0b84bd;
-    --whatsapp: #25D366;
-    --whatsapp-deep: #1ebd5a;
-    --radius: 10px;
-    --max-width: 1100px;
+  :root{
+    --black:#000000;
+    --blue:#38bdf8;
+    --blue-dark:#0284c7;
+    --green:#25D366;
+    --red:#e34c4c;
+    --bg:#f7f9fb;
+    --card:#ffffff;
+    --border:#e6ebf0;
+    --text-soft:#5b6572;
+    --shadow:0 10px 25px rgba(15,35,55,.08);
   }
 
-- { box-sizing: border-box; }
+  *{box-sizing:border-box;}
 
-html, body {
-margin: 0;
-padding: 0;
-}
+  body{
+    margin:0;
+    font-family:'Tajawal', sans-serif;
+    background:var(--bg);
+    color:var(--black);
+    direction:rtl;
+  }
 
-body {
-font-family: ‘Tajawal’, sans-serif;
-color: var(–ink);
-background: #ffffff;
-line-height: 1.6;
--webkit-font-smoothing: antialiased;
-}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
 
-a { text-decoration: none; color: inherit; }
+  /* ============ HEADER ============ */
+  header{
+    position:relative;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:18px 16px;
+    min-height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
 
-button { font-family: inherit; cursor: pointer; }
+  .logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:.5px;
+    white-space:nowrap;
+  }
+  .logo .den{color:var(--black);}
+  .logo .trust{color:var(--blue);}
 
-:focus-visible {
-outline: 3px solid var(–brand-blue);
-outline-offset: 2px;
-}
+  .tagline{
+    position:absolute;
+    left:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:13px;
+    font-weight:700;
+    white-space:nowrap;
+    color:var(--black);
+  }
+  .tagline .accent{color:var(--blue);}
 
-/* ––––– Header ––––– */
+  .wa-btn{
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:999px;
+    background:#eafcf1;
+    border:1.5px solid var(--green);
+    font-size:13px;
+    font-weight:700;
+    color:var(--black);
+    white-space:nowrap;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .wa-btn:hover{transform:translateY(-52%) scale(1.03);box-shadow:0 6px 16px rgba(37,211,102,.25);}
+  .wa-icon{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--green);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .wa-icon svg{width:13px;height:13px;fill:#fff;}
 
-.site-header {
-border-bottom: 1px solid var(–line);
-padding: 18px 24px;
-}
+  @media (max-width:760px){
+    header{flex-direction:column;gap:10px;padding:14px 12px 12px;min-height:auto;}
+    .tagline{position:static;transform:none;order:2;font-size:11.5px;}
+    .wa-btn{position:static;transform:none;order:3;}
+    .logo{order:1;font-size:24px;}
+  }
 
-.header-grid {
-max-width: var(–max-width);
-margin: 0 auto;
-display: grid;
-grid-template-columns: 1fr auto 1fr;
-align-items: center;
-gap: 16px;
-}
+  /* ============ MAIN ============ */
+  main{max-width:1100px;margin:0 auto;padding:32px 16px 80px;}
 
-.tagline {
-font-size: 14px;
-font-weight: 500;
-color: var(–ink);
-justify-self: start;
-letter-spacing: 0.2px;
-}
+  .page-title{
+    text-align:center;
+    font-size:24px;
+    font-weight:900;
+    margin:0 0 26px;
+  }
 
-.tagline .accent { color: var(--brand-blue); font-weight: 700; }
+  /* Years tabs */
+  .years-row{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .year-tab{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 18px;
+    border-radius:14px;
+    background:var(--card);
+    border:1.5px solid var(--border);
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--text-soft);
+    transition:all .18s ease;
+  }
+  .year-tab .num{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--border);
+    color:var(--black);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:900;
+    flex-shrink:0;
+  }
+  .year-tab:hover{border-color:var(--blue);color:var(--black);}
+  .year-tab.active{
+    background:var(--black);
+    border-color:var(--black);
+    color:#fff;
+  }
+  .year-tab.active .num{background:var(--blue);color:#fff;}
 
-.logo {
-justify-self: center;
-font-size: 28px;
-font-weight: 900;
-white-space: nowrap;
-}
+  /* Chapters */
+  .chapters-row{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+  }
+  .chapter-tab{
+    padding:10px 22px;
+    border-radius:999px;
+    background:var(--card);
+    border:1.5px solid var(--border);
+    font-weight:700;
+    font-size:14px;
+    color:var(--text-soft);
+    transition:all .18s ease;
+  }
+  .chapter-tab:hover{border-color:var(--blue);color:var(--black);}
+  .chapter-tab.active{
+    background:var(--blue);
+    border-color:var(--blue);
+    color:#fff;
+  }
 
-.logo .den { color: #000000; }
-.logo .trust { color: var(--brand-blue); }
+  .section-divider{
+    border:none;border-top:1px dashed var(--border);
+    margin:24px 0;
+  }
 
-.whatsapp-btn {
-justify-self: end;
-display: inline-flex;
-align-items: center;
-gap: 10px;
-background: #ffffff;
-border: 1.5px solid var(–whatsapp);
-border-radius: 999px;
-padding: 8px 16px 8px 10px;
-transition: background 0.15s ease, transform 0.15s ease;
-}
+  /* ============ PLACEHOLDER PRODUCT ============ */
+  .placeholder-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    max-width:320px;
+    margin:0 auto;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .placeholder-img{
+    height:170px;
+    background:repeating-linear-gradient(45deg,#eef2f6,#eef2f6 12px,#e4e9ee 12px,#e4e9ee 24px);
+    display:flex;align-items:center;justify-content:center;
+    color:#9aa6b2;font-size:13px;font-weight:700;
+  }
+  .placeholder-body{padding:16px;}
+  .placeholder-body h3{margin:0 0 6px;font-size:16px;}
+  .placeholder-price{color:var(--blue-dark);font-weight:800;margin-bottom:12px;}
+  .placeholder-order{
+    display:block;text-align:center;
+    background:var(--black);color:#fff;
+    padding:11px;border-radius:10px;
+    font-weight:700;font-size:14px;
+  }
 
-.whatsapp-btn:hover {
-background: #f0fdf5;
-transform: translateY(-1px);
-}
+  /* ============ TOOLS PRODUCT (Year 2 / Chapter 2) ============ */
+  .tools-slider{
+    position:relative;
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    max-width:640px;
+    margin:0 auto;
+  }
+  .slide-arrow{
+    flex-shrink:0;
+    width:40px;height:40px;
+    border-radius:50%;
+    background:var(--card);
+    border:1.5px solid var(--border);
+    font-size:18px;
+    font-weight:900;
+    color:var(--black);
+    display:flex;align-items:center;justify-content:center;
+    margin-top:120px;
+    transition:all .15s ease;
+  }
+  .slide-arrow:hover{border-color:var(--blue);color:var(--blue-dark);}
+  .slide-arrow:disabled{opacity:.35;cursor:default;}
+  .slide-arrow:disabled:hover{border-color:var(--border);color:var(--black);}
 
-.whatsapp-btn .wa-icon {
-width: 30px;
-height: 30px;
-border-radius: 50%;
-background: var(–whatsapp);
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-}
+  .slides-viewport{
+    overflow:hidden;
+    flex:1;
+    border-radius:18px;
+  }
+  .slides-track{
+    display:flex;
+    transition:transform .35s ease;
+    width:200%;
+  }
+  .tool-slide{width:50%;flex-shrink:0;}
 
-.whatsapp-btn .wa-icon svg {
-width: 17px;
-height: 17px;
-fill: #ffffff;
-}
+  .tool-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    padding:20px 18px 22px;
+  }
+  .tool-card h3{
+    margin:0 0 10px;
+    font-size:18px;
+    font-weight:900;
+  }
+  .tool-note{
+    background:#fff8e8;
+    border:1px solid #f1dca4;
+    border-radius:12px;
+    padding:10px 12px;
+    font-size:12.5px;
+    line-height:1.9;
+    color:#7a5c14;
+    margin-bottom:16px;
+  }
+  .tool-category{margin-bottom:16px;}
+  .tool-category-title{
+    font-size:14.5px;
+    font-weight:800;
+    margin-bottom:8px;
+    color:var(--black);
+  }
+  .tool-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:9px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .tool-item:last-child{border-bottom:none;}
+  .tool-name{
+    font-size:13.5px;
+    font-weight:700;
+    flex:1;
+    min-width:0;
+    transition:color .15s ease;
+  }
+  .tool-name.qty-zero{color:var(--red);}
+  .tool-name.qty-pos{color:var(--green);}
 
-.whatsapp-btn span {
-color: #161616;
-font-size: 14px;
-font-weight: 700;
-}
+  .tool-price{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--text-soft);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
 
-@media (max-width: 720px) {
-.header-grid {
-grid-template-columns: 1fr;
-justify-items: center;
-text-align: center;
-gap: 10px;
-}
-.tagline { justify-self: center; font-size: 12px; }
-.whatsapp-btn { justify-self: center; }
-}
+  .qty-control{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-shrink:0;
+  }
+  .qty-btn{
+    width:24px;height:24px;
+    border-radius:7px;
+    background:#f0f3f6;
+    border:1px solid var(--border);
+    font-size:14px;
+    font-weight:900;
+    line-height:1;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .qty-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .qty-value{
+    min-width:18px;
+    text-align:center;
+    font-size:13px;
+    font-weight:800;
+  }
 
-/* ––––– Hero / Section heading ––––– */
+  .tool-order-btn{
+    display:block;
+    width:100%;
+    margin-top:18px;
+    background:var(--black);
+    color:#fff;
+    border-radius:14px;
+    padding:12px;
+    text-align:center;
+  }
+  .tool-order-total{
+    font-size:15px;
+    font-weight:900;
+    color:var(--blue);
+    margin-bottom:2px;
+  }
+  .tool-order-label{
+    font-size:13px;
+    font-weight:700;
+  }
 
-.hero {
-max-width: var(–max-width);
-margin: 0 auto;
-padding: 56px 24px 8px;
-text-align: center;
-}
-
-.hero h1 {
-font-size: clamp(26px, 4vw, 38px);
-font-weight: 900;
-margin: 0 0 8px;
-}
-
-.hero p {
-color: var(–ink-soft);
-font-size: 15px;
-margin: 0;
-}
-
-/* ––––– Year tabs ––––– */
-
-.years-wrap {
-max-width: var(–max-width);
-margin: 32px auto 0;
-padding: 0 24px;
-}
-
-.years-tabs {
-display: flex;
-flex-direction: row;
-justify-content: center;
-flex-wrap: wrap;
-gap: 8px;
-border-bottom: 1px solid var(–line);
-padding-bottom: 0;
-}
-
-.year-tab {
-background: none;
-border: none;
-padding: 14px 20px;
-font-size: 16px;
-font-weight: 700;
-color: var(–ink-soft);
-border-bottom: 3px solid transparent;
-margin-bottom: -1px;
-transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.year-tab:hover {
-color: var(–ink);
-}
-
-.year-tab.active {
-color: var(–brand-blue-deep);
-border-bottom-color: var(–brand-blue);
-}
-
-.year-tab .num {
-display: inline-block;
-min-width: 22px;
-height: 22px;
-line-height: 22px;
-border-radius: 50%;
-background: var(–surface);
-color: var(–ink-soft);
-font-size: 12px;
-margin-inline-start: 6px;
-transition: background 0.15s ease, color 0.15s ease;
-}
-
-.year-tab.active .num {
-background: var(–brand-blue);
-color: #ffffff;
-}
-
-/* ––––– Chapter tabs ––––– */
-
-.chapters-wrap {
-max-width: var(–max-width);
-margin: 22px auto 0;
-padding: 0 24px;
-display: none;
-}
-
-.chapters-wrap.visible {
-display: block;
-}
-
-.chapters-tabs {
-display: flex;
-justify-content: center;
-gap: 10px;
-flex-wrap: wrap;
-}
-
-.chapter-tab {
-background: var(–surface);
-border: 1px solid var(–line);
-border-radius: 999px;
-padding: 9px 20px;
-font-size: 14px;
-font-weight: 500;
-color: var(–ink);
-transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-
-.chapter-tab:hover {
-border-color: var(–brand-blue);
-}
-
-.chapter-tab.active {
-background: var(–brand-blue);
-border-color: var(–brand-blue);
-color: #ffffff;
-}
-
-/* ––––– Products ––––– */
-
-.products-wrap {
-max-width: var(–max-width);
-margin: 0 auto;
-padding: 28px 24px 80px;
-display: none;
-}
-
-.products-wrap.visible {
-display: block;
-}
-
-.products-heading {
-font-size: 14px;
-font-weight: 700;
-color: var(–ink-soft);
-margin: 0 0 16px;
-text-align: center;
-}
-
-.products-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-gap: 18px;
-}
-
-.product-card {
-border: 1px solid var(–line);
-border-radius: var(–radius);
-overflow: hidden;
-background: #ffffff;
-display: flex;
-flex-direction: column;
-}
-
-.product-image {
-aspect-ratio: 4 / 3;
-background: var(–tint);
-color: var(–brand-blue-deep);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 13px;
-font-weight: 500;
-text-align: center;
-padding: 12px;
-}
-
-.product-body {
-padding: 14px 16px 16px;
-display: flex;
-flex-direction: column;
-gap: 8px;
-flex-grow: 1;
-}
-
-.product-title {
-font-size: 15px;
-font-weight: 700;
-margin: 0;
-}
-
-.product-price {
-font-size: 14px;
-color: var(–brand-blue-deep);
-font-weight: 700;
-margin: 0;
-}
-
-.product-order-btn {
-margin-top: auto;
-background: var(–ink);
-color: #ffffff;
-border: none;
-border-radius: 8px;
-padding: 10px 14px;
-font-size: 14px;
-font-weight: 700;
-text-align: center;
-transition: background 0.15s ease;
-}
-
-.product-order-btn:hover {
-background: var(–brand-blue-deep);
-}
-
-/* ––––– Footer ––––– */
-
-.site-footer {
-border-top: 1px solid var(–line);
-padding: 20px 24px;
-text-align: center;
-font-size: 13px;
-color: var(–ink-soft);
-}
-
-@media (prefers-reduced-motion: reduce) {
-* {
-transition: none !important;
-}
-}
+  @media (max-width:560px){
+    .slide-arrow{margin-top:60px;width:34px;height:34px;font-size:15px;}
+    .tool-card{padding:16px 14px 18px;}
+  }
 </style>
-
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-grid">
-    <div class="tagline">
-      <span class="accent">D</span>ental.<span class="accent">E</span>asy.<span class="accent">N</span>oble.<span class="accent">TRUST</span>
-    </div>
-    <div class="logo"><span class="den">Den</span><span class="trust">Trust</span></div>
-    <a class="whatsapp-btn" href="https://wa.me/966570291254" target="_blank" rel="noopener">
-      <span class="wa-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.6 6.32A8.8 8.8 0 0 0 12.02 3.5c-4.87 0-8.83 3.95-8.83 8.83a8.8 8.8 0 0 0 1.18 4.42L3.5 20.5l3.86-1.01a8.8 8.8 0 0 0 4.66 1.34h.01c4.87 0 8.83-3.95 8.83-8.83a8.78 8.78 0 0 0-2.87-6.68zm-5.58 13.6h-.01a7.34 7.34 0 0 1-3.74-1.02l-.27-.16-2.78.73.74-2.71-.18-.28a7.33 7.33 0 0 1-1.13-3.92c0-4.06 3.31-7.36 7.38-7.36a7.35 7.35 0 0 1 7.36 7.37c0 4.06-3.3 7.35-7.37 7.35zm4.04-5.51c-.22-.11-1.3-.64-1.5-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.11-.66-.59-1.11-1.32-1.24-1.54-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.79.77-.79 1.87s.81 2.17.92 2.32c.11.15 1.6 2.44 3.87 3.42.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.3-.53 1.49-1.04.18-.51.18-.94.13-1.03-.05-.09-.2-.15-.42-.26z"/></svg>
-      </span>
-      <span>(أطلب الآن عبر الواتساب)</span>
-    </a>
+<header>
+  <div class="tagline">
+    <span class="accent">D</span>ental.<span class="accent">E</span>asy.<span class="accent">N</span>oble.<span class="accent">TRUST</span>
   </div>
+  <div class="logo"><span class="den">Den</span><span class="trust">Trust</span></div>
+  <a class="wa-btn" id="headerWaBtn" href="#" target="_blank" rel="noopener">
+    <span class="wa-icon">
+      <svg viewBox="0 0 32 32"><path d="M16.001 3C9.373 3 4 8.373 4 15.001c0 2.386.699 4.61 1.902 6.478L4 29l7.694-1.877A11.94 11.94 0 0 0 16.001 27C22.629 27 28 21.627 28 15.001 28 8.373 22.629 3 16.001 3zm0 21.818a9.78 9.78 0 0 1-4.998-1.37l-.358-.213-4.566 1.114 1.15-4.45-.234-.372a9.78 9.78 0 0 1-1.5-5.226c0-5.421 4.412-9.833 9.833-9.833 5.421 0 9.833 4.412 9.833 9.833 0 5.421-4.412 9.833-9.833 9.833zm5.42-7.36c-.297-.148-1.756-.867-2.028-.966-.272-.099-.47-.148-.667.148-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.148-1.254-.462-2.388-1.472-.883-.788-1.48-1.762-1.653-2.059-.173-.297-.018-.457.13-.605.134-.133.297-.347.446-.52.148-.174.198-.297.297-.495.099-.198.05-.372-.025-.52-.074-.148-.667-1.607-.914-2.202-.24-.578-.485-.5-.667-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.075-.792.372-.272.297-1.04 1.016-1.04 2.477 0 1.462 1.065 2.874 1.213 3.072.148.198 2.096 3.2 5.078 4.488.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.756-.718 2.004-1.412.248-.694.248-1.288.173-1.412-.074-.124-.272-.198-.57-.347z"/></svg>
+    </span>
+    (أطلب الآن عبر الواتساب)
+  </a>
 </header>
 
-<section class="hero">
-  <h1>(اختر السنة)</h1>
-  <p>حدد سنتك الدراسية ثم الفصل، لعرض المواد الخاصة به</p>
-</section>
+<main>
+  <h1 class="page-title">(اختر السنة)</h1>
 
-<div class="years-wrap">
-  <div class="years-tabs" id="yearsTabs" role="tablist"></div>
-</div>
-
-<div class="chapters-wrap" id="chaptersWrap">
-  <div class="chapters-tabs" id="chaptersTabs" role="tablist"></div>
-</div>
-
-<div class="products-wrap" id="productsWrap">
-  <p class="products-heading" id="productsHeading"></p>
-  <div class="products-grid" id="productsGrid"></div>
-</div>
-
-<footer class="site-footer">
-  جميع الحقوق محفوظة &copy; DenTrust
-</footer>
+  <div class="years-row" id="yearsRow"></div>
+  <div class="chapters-row" id="chaptersRow"></div>
+  <hr class="section-divider" id="divider" style="display:none;">
+  <div id="productsArea"></div>
+</main>
 
 <script>
-  const WHATSAPP_NUMBER = "966570291254";
+  const ADMIN_PHONE = "966570291254";
+  const PRICE_PER_UNIT = 500;
 
-  const YEARS = [
-    { id: "year1", label: "السنة الأولى" },
-    { id: "year2", label: "السنة الثانية" },
-    { id: "year3", label: "السنة الثالثة" },
-    { id: "year4", label: "السنة الرابعة" },
-    { id: "year5", label: "السنة الخامسة" }
-  ];
+  function waLink(text){
+    return "https://wa.me/" + ADMIN_PHONE + "?text=" + encodeURIComponent(text);
+  }
 
-  const CHAPTERS = [
-    { id: "ch1", label: "الفصل الأول" },
-    { id: "ch2", label: "الفصل الثاني" }
-  ];
+  document.getElementById("headerWaBtn").href = waLink("مرحباً، أرغب بالاستفسار والطلب عبر واتساب.");
 
-  const PRODUCTS = {
-    year1: {
-      ch1: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
-      ],
-      ch2: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+  /* ---------- Tool categories data (Year 2 / Chapter 2) ---------- */
+  const toolCategoriesBase = [
+    {
+      title: "أدوات مادة مواد سنية ترميمية:",
+      items: [
+        { name: "لوحين مزج", qty: 2 },
+        { name: "سباتيول", qty: 1 },
+        { name: "أداة تبطين", qty: 1 }
       ]
     },
-    year2: {
-      ch1: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
-      ],
-      ch2: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+    {
+      title: "أدوات مادة مداواة الأسنان الترميمية:",
+      items: [
+        { name: "صينية", qty: 0 },
+        { name: "شانات", qty: 0 },
+        { name: "فرازاكو", qty: 0 },
+        { name: "فرشاة أسنان", qty: 1 },
+        { name: "بخاخ كحول", qty: 1 },
+        { name: "أدوات فحص", qty: 1 },
+        { name: "قبضة مكرتور", qty: 1 },
+        { name: "سنابل ماسية (قمعية وشاقة وكروية)", qty: 1 },
+        { name: "كبسولات أملغم عيار واحد", qty: 6 },
+        { name: "كبسولات أملغم عيارين", qty: 6 },
+        { name: "كبسولات أملغم عيار 3", qty: 3 },
+        { name: "جرن أملغم", qty: 1 },
+        { name: "مدفع أملغم", qty: 1 },
+        { name: "مدك أملغم", qty: 1 },
+        { name: "مصقلة أملغم", qty: 1 },
+        { name: "مناحت أملغم (ميزابية وورقية)", qty: 1 },
+        { name: "أوتاد خشبية ملونة", qty: 1 },
+        { name: "مسندة جزئية Mo/Do مع شرائط كذا قياس", qty: 1 },
+        { name: "مسندة كاملة MOD مع شريط مسندة قياس 5", qty: 1 },
+        { name: "أدوات الإنهاء وتلميع الأملغم", qty: 0 },
+        { name: "أسنان أكريل حسب الأعمال المطلوبة", qty: 1 }
       ]
     },
-    year3: {
-      ch1: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
-      ],
-      ch2: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
-      ]
-    },
-    year4: {
-      ch1: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
-      ],
-      ch2: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
-      ]
-    },
-    year5: {
-      ch1: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
-      ],
-      ch2: [
-        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+    {
+      title: "أدوات مادة التعويضات الجزئية:",
+      items: [
+        { name: "صينية", qty: 0 },
+        { name: "شانات", qty: 0 },
+        { name: "قنديل", qty: 0 },
+        { name: "بخاخ كحول", qty: 0 },
+        { name: "تورش", qty: 1 },
+        { name: "لوح شمع", qty: 2 },
+        { name: "مطبق معدني ماركة ألواج", qty: 1 },
+        { name: "جبس أبيض", qty: 1 },
+        { name: "لوحين زجاجين", qty: 0 },
+        { name: "سباتيول", qty: 0 },
+        { name: "أكريل سائل وبودرة", qty: 1 },
+        { name: "فنجان لخلط الأكريل", qty: 0 },
+        { name: "أسنان تنضيد السيف", qty: 1 }
       ]
     }
-  };
+  ];
 
+  function cloneCategoriesWithZeroQty(categories){
+    return categories.map(cat => ({
+      title: cat.title,
+      items: cat.items.map(it => ({ name: it.name, qty: 0 }))
+    }));
+  }
+
+  /* ---------- Placeholder products for all other year/chapter combos ---------- */
+  function placeholderProductHTML(year, chapter){
+    const msg = "مرحباً، أرغب بطلب المنتج التجريبي - السنة " + year + " - الفصل " + chapter;
+    return `
+      <div class="placeholder-card">
+        <div class="placeholder-img">صورة المنتج</div>
+        <div class="placeholder-body">
+          <h3>منتج تجريبي - السنة ${year} / الفصل ${chapter}</h3>
+          <div class="placeholder-price">السعر: 000 ليرة</div>
+          <a class="placeholder-order" href="${waLink(msg)}" target="_blank" rel="noopener">اطلب الآن</a>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ---------- Tool product card renderer ---------- */
+  function renderToolCard(product){
+    let html = `<div class="tool-card" data-product="${product.id}">`;
+    html += `<h3>${product.title}</h3>`;
+    if(product.note){
+      html += `<div class="tool-note">${product.note}</div>`;
+    }
+    product.categories.forEach((cat, ci) => {
+      html += `<div class="tool-category">`;
+      html += `<div class="tool-category-title">${cat.title}</div>`;
+      cat.items.forEach((item, ii) => {
+        const colorClass = item.qty > 0 ? "qty-pos" : "qty-zero";
+        html += `
+          <div class="tool-item">
+            <span class="tool-name ${colorClass}" data-cat="${ci}" data-item="${ii}">${item.name}</span>
+            <span class="tool-price">${PRICE_PER_UNIT} ليرة</span>
+            <div class="qty-control">
+              <button class="qty-btn minus" data-cat="${ci}" data-item="${ii}">−</button>
+              <span class="qty-value" data-cat="${ci}" data-item="${ii}">${item.qty}</span>
+              <button class="qty-btn plus" data-cat="${ci}" data-item="${ii}">+</button>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+    });
+    html += `
+      <a class="tool-order-btn" href="#" target="_blank" rel="noopener" data-product="${product.id}">
+        <div class="tool-order-total" data-total="${product.id}">0 ليرة</div>
+        <div class="tool-order-label">اطلب الآن</div>
+      </a>
+    `;
+    html += `</div>`;
+    return html;
+  }
+
+  function updateToolCard(product){
+    const card = document.querySelector(`.tool-card[data-product="${product.id}"]`);
+    if(!card) return;
+    let total = 0;
+    product.categories.forEach((cat, ci) => {
+      cat.items.forEach((item, ii) => {
+        total += item.qty * PRICE_PER_UNIT;
+        const nameEl = card.querySelector(`.tool-name[data-cat="${ci}"][data-item="${ii}"]`);
+        const qtyEl = card.querySelector(`.qty-value[data-cat="${ci}"][data-item="${ii}"]`);
+        qtyEl.textContent = item.qty;
+        nameEl.classList.toggle("qty-pos", item.qty > 0);
+        nameEl.classList.toggle("qty-zero", item.qty === 0);
+      });
+    });
+    const totalEl = document.querySelector(`.tool-order-total[data-total="${product.id}"]`);
+    totalEl.textContent = total + " ليرة";
+
+    const orderBtn = document.querySelector(`.tool-order-btn[data-product="${product.id}"]`);
+    let msgLines = [`طلب - ${product.title}`, ""];
+    product.categories.forEach(cat => {
+      const selected = cat.items.filter(it => it.qty > 0);
+      if(selected.length){
+        msgLines.push(cat.title);
+        selected.forEach(it => msgLines.push(`- ${it.name}: الكمية ${it.qty}`));
+        msgLines.push("");
+      }
+    });
+    msgLines.push(`الإجمالي: ${total} ليرة`);
+    orderBtn.href = waLink(msgLines.join("\n"));
+  }
+
+  function attachToolCardEvents(product){
+    const card = document.querySelector(`.tool-card[data-product="${product.id}"]`);
+    card.querySelectorAll(".qty-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const ci = +btn.dataset.cat;
+        const ii = +btn.dataset.item;
+        const item = product.categories[ci].items[ii];
+        if(btn.classList.contains("plus")){
+          item.qty += 1;
+        } else {
+          item.qty = Math.max(0, item.qty - 1);
+        }
+        updateToolCard(product);
+      });
+    });
+  }
+
+  /* ---------- Build the two tools products for Year 2 / Chapter 2 ---------- */
+  function buildYear2Chapter2Products(){
+    const noteText = "جميع الادوات الموجودة مطلوبة في هذا الفصل، ولكن البوكس يتضمن الادوات باللون الأخضر، اللون الأحمر هي ادوات سابقة، ويمكن التعديل على محتويات الطلب حسب الرغبة بزيادة او انقاص كمية كل منتج";
+
+    const product1 = {
+      id: "y2c2-p1",
+      title: "الأدوات المطلوبة والمستخدمة في الفصل الثاني",
+      note: noteText,
+      categories: JSON.parse(JSON.stringify(toolCategoriesBase))
+    };
+
+    const product2 = {
+      id: "y2c2-p2",
+      title: "تخصيص أدوات",
+      note: noteText,
+      categories: cloneCategoriesWithZeroQty(toolCategoriesBase)
+    };
+
+    return [product1, product2];
+  }
+
+  function renderYear2Chapter2(container){
+    const products = buildYear2Chapter2Products();
+
+    container.innerHTML = `
+      <div class="tools-slider">
+        <button class="slide-arrow" id="arrowNext" aria-label="التالي">‹</button>
+        <div class="slides-viewport">
+          <div class="slides-track" id="slidesTrack">
+            <div class="tool-slide">${renderToolCard(products[0])}</div>
+            <div class="tool-slide">${renderToolCard(products[1])}</div>
+          </div>
+        </div>
+        <button class="slide-arrow" id="arrowPrev" aria-label="السابق" disabled>›</button>
+      </div>
+    `;
+
+    products.forEach(p => {
+      updateToolCard(p);
+      attachToolCardEvents(p);
+    });
+
+    let current = 0;
+    const track = document.getElementById("slidesTrack");
+    const nextBtn = document.getElementById("arrowNext");
+    const prevBtn = document.getElementById("arrowPrev");
+
+    function goTo(index){
+      current = index;
+      track.style.transform = `translateX(${current * 50}%)`;
+      nextBtn.disabled = current === 1;
+      prevBtn.disabled = current === 0;
+    }
+
+    nextBtn.addEventListener("click", () => { if(current === 0) goTo(1); });
+    prevBtn.addEventListener("click", () => { if(current === 1) goTo(0); });
+  }
+
+  /* ---------- Year / chapter navigation ---------- */
+  const YEARS = ["السنة الأولى", "السنة الثانية", "السنة الثالثة", "السنة الرابعة", "السنة الخامسة"];
   let selectedYear = null;
   let selectedChapter = null;
 
-  const yearsTabsEl = document.getElementById("yearsTabs");
-  const chaptersWrapEl = document.getElementById("chaptersWrap");
-  const chaptersTabsEl = document.getElementById("chaptersTabs");
-  const productsWrapEl = document.getElementById("productsWrap");
-  const productsHeadingEl = document.getElementById("productsHeading");
-  const productsGridEl = document.getElementById("productsGrid");
+  const yearsRow = document.getElementById("yearsRow");
+  const chaptersRow = document.getElementById("chaptersRow");
+  const productsArea = document.getElementById("productsArea");
+  const divider = document.getElementById("divider");
 
-  function buildYearTabs() {
-    YEARS.forEach((year, index) => {
-      const btn = document.createElement("button");
-      btn.className = "year-tab";
-      btn.setAttribute("role", "tab");
-      btn.dataset.yearId = year.id;
-      btn.innerHTML = year.label + '<span class="num">' + (index + 1) + '</span>';
-      btn.addEventListener("click", () => selectYear(year.id));
-      yearsTabsEl.appendChild(btn);
-    });
-  }
+  YEARS.forEach((label, idx) => {
+    const yearNum = idx + 1;
+    const btn = document.createElement("button");
+    btn.className = "year-tab";
+    btn.innerHTML = `<span class="num">${yearNum}</span><span>${label}</span>`;
+    btn.addEventListener("click", () => selectYear(yearNum, btn));
+    yearsRow.appendChild(btn);
+  });
 
-  function selectYear(yearId) {
-    selectedYear = yearId;
+  function selectYear(yearNum, btnEl){
+    selectedYear = yearNum;
     selectedChapter = null;
-
-    document.querySelectorAll(".year-tab").forEach(el => {
-      el.classList.toggle("active", el.dataset.yearId === yearId);
-    });
-
-    buildChapterTabs();
-    chaptersWrapEl.classList.add("visible");
-    productsWrapEl.classList.remove("visible");
+    document.querySelectorAll(".year-tab").forEach(b => b.classList.remove("active"));
+    btnEl.classList.add("active");
+    renderChapters();
+    productsArea.innerHTML = "";
+    divider.style.display = "none";
   }
 
-  function buildChapterTabs() {
-    chaptersTabsEl.innerHTML = "";
-    CHAPTERS.forEach(chapter => {
+  function renderChapters(){
+    chaptersRow.innerHTML = "";
+    ["الفصل الأول", "الفصل الثاني"].forEach((label, idx) => {
+      const chapterNum = idx + 1;
       const btn = document.createElement("button");
       btn.className = "chapter-tab";
-      btn.setAttribute("role", "tab");
-      btn.dataset.chapterId = chapter.id;
-      btn.textContent = chapter.label;
-      btn.addEventListener("click", () => selectChapter(chapter.id));
-      chaptersTabsEl.appendChild(btn);
+      btn.textContent = label;
+      btn.addEventListener("click", () => selectChapter(chapterNum, btn));
+      chaptersRow.appendChild(btn);
     });
   }
 
-  function selectChapter(chapterId) {
-    selectedChapter = chapterId;
-
-    document.querySelectorAll(".chapter-tab").forEach(el => {
-      el.classList.toggle("active", el.dataset.chapterId === chapterId);
-    });
-
+  function selectChapter(chapterNum, btnEl){
+    selectedChapter = chapterNum;
+    document.querySelectorAll(".chapter-tab").forEach(b => b.classList.remove("active"));
+    btnEl.classList.add("active");
+    divider.style.display = "block";
     renderProducts();
-    productsWrapEl.classList.add("visible");
   }
 
-  function renderProducts() {
-    const yearLabel = YEARS.find(y => y.id === selectedYear).label;
-    const chapterLabel = CHAPTERS.find(c => c.id === selectedChapter).label;
-
-    productsHeadingEl.textContent = "مواد " + yearLabel + " - " + chapterLabel;
-
-    const items = (PRODUCTS[selectedYear] && PRODUCTS[selectedYear][selectedChapter]) || [];
-
-    productsGridEl.innerHTML = "";
-
-    items.forEach(product => {
-      const card = document.createElement("div");
-      card.className = "product-card";
-
-      const image = document.createElement("div");
-      image.className = "product-image";
-      image.textContent = product.image;
-
-      const body = document.createElement("div");
-      body.className = "product-body";
-
-      const title = document.createElement("p");
-      title.className = "product-title";
-      title.textContent = product.title;
-
-      const price = document.createElement("p");
-      price.className = "product-price";
-      price.textContent = product.price;
-
-      const orderBtn = document.createElement("a");
-      orderBtn.className = "product-order-btn";
-      orderBtn.textContent = "اطلب الآن";
-      orderBtn.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" +
-        encodeURIComponent("مرحباً، أرغب بطلب: " + product.title + " (" + yearLabel + " - " + chapterLabel + ")");
-      orderBtn.target = "_blank";
-      orderBtn.rel = "noopener";
-
-      body.appendChild(title);
-      body.appendChild(price);
-      body.appendChild(orderBtn);
-
-      card.appendChild(image);
-      card.appendChild(body);
-
-      productsGridEl.appendChild(card);
-    });
+  function renderProducts(){
+    productsArea.innerHTML = "";
+    if(selectedYear === 2 && selectedChapter === 2){
+      renderYear2Chapter2(productsArea);
+    } else {
+      productsArea.innerHTML = placeholderProductHTML(selectedYear, selectedChapter);
+    }
   }
-
-  buildYearTabs();
 </script>
 
 </body>
