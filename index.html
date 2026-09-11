@@ -200,20 +200,55 @@
     max-width:820px;
     margin:0 auto;
   }
-  .pd-images{
-    display:flex;
-    gap:14px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-bottom:20px;
+  .pd-carousel{
+    position:relative;
+    width:100%;
+    max-width:380px;
+    margin:0 auto 20px;
   }
-  .pd-images img{
-    width:220px;
-    height:220px;
-    object-fit:cover;
-    border-radius:14px;
+  .pd-carousel-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    border-radius:16px;
+    overflow:hidden;
     border:1px solid var(--border);
+    background:#f3f7fb;
   }
+  .pd-carousel-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .pd-arrow{
+    position:absolute;
+    top:50%;
+    right:10px;
+    transform:translateY(-50%);
+    width:42px;height:42px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,.92);
+    box-shadow:0 6px 16px rgba(15,60,100,.22);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;
+    font-weight:800;
+    color:var(--blue-dark);
+  }
+  .pd-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06);}
+  .pd-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-top:10px;
+  }
+  .pd-dot{
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--border);
+  }
+  .pd-dot.active{background:var(--blue);}
   .pd-title{
     text-align:center;
     font-size:clamp(20px,2.8vw,26px);
@@ -232,52 +267,61 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
-    padding:10px 6px;
+    gap:14px;
+    padding:14px 6px;
     border-bottom:1px solid #f0f3f7;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
   }
   .pd-item-name{
     font-weight:700;
     font-size:14.5px;
     color:var(--black);
     transition:color .15s ease;
+    flex:1 1 auto;
+    min-width:0;
+    white-space:normal;
+    word-break:break-word;
+    line-height:1.4;
   }
   .pd-item-name.active{color:var(--green);}
   .pd-item-note{
     font-size:13px;
     color:var(--muted);
     font-style:normal;
+    flex:0 0 auto;
+    white-space:nowrap;
   }
   .pd-item-controls{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:12px;
+    flex:0 0 auto;
   }
   .qty-box{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:12px;
     background:#f3f7fb;
-    border-radius:10px;
-    padding:4px 6px;
+    border-radius:14px;
+    padding:6px 10px;
   }
   .qty-btn{
-    width:28px;height:28px;
-    border-radius:8px;
+    width:40px;height:40px;
+    border-radius:12px;
     border:1px solid var(--border);
     background:#fff;
-    font-size:16px;
+    font-size:22px;
     font-weight:800;
     line-height:1;
     display:flex;align-items:center;justify-content:center;
   }
-  .qty-btn:hover{border-color:var(--blue);color:var(--blue-dark);}
+  .qty-btn:hover{border-color:var(--blue);color:var(--blue-dark);background:#eaf7ff;}
+  .qty-btn:active{transform:scale(.94);}
   .qty-val{
-    min-width:18px;
+    min-width:22px;
     text-align:center;
     font-weight:800;
-    font-size:14.5px;
+    font-size:16px;
   }
   .item-price{
     font-weight:800;
@@ -312,9 +356,10 @@
 
   @media (max-width:640px){
     .header-row{padding:12px 14px;}
-    .pd-item{flex-direction:row;}
     .product-detail{padding:18px;}
-    .pd-images img{width:150px;height:150px;}
+    .qty-btn{width:36px;height:36px;font-size:20px;}
+    .item-price{min-width:52px;font-size:13px;}
+    .pd-carousel{max-width:280px;}
   }
 </style>
 </head>
@@ -513,7 +558,15 @@ function renderToolsKit(p){
   const box = document.createElement('div');
   box.className = 'product-detail';
 
-  const imgsHtml = p.images.map(src=>`<img src="${src}" alt="صورة المنتج">`).join('');
+  const dotsHtml = p.images.map((_, i)=>`<span class="pd-dot${i===0?' active':''}" data-dot="${i}"></span>`).join('');
+  const carouselHtml = `
+    <div class="pd-carousel">
+      <div class="pd-carousel-frame">
+        <img id="carouselImg" src="${p.images[0]}" alt="صورة المنتج">
+        <button class="pd-arrow" id="carouselNext" aria-label="الصورة التالية">‹</button>
+      </div>
+      <div class="pd-dots">${dotsHtml}</div>
+    </div>`;
 
   let catsHtml = '';
   p.categories.forEach((cat, ci)=>{
@@ -544,7 +597,7 @@ function renderToolsKit(p){
   });
 
   box.innerHTML = `
-    <div class="pd-images">${imgsHtml}</div>
+    ${carouselHtml}
     <h3 class="pd-title">${p.title}</h3>
     ${catsHtml}
     <div class="pd-total">
@@ -555,6 +608,22 @@ function renderToolsKit(p){
       </button>
     </div>
   `;
+
+  let carouselIndex = 0;
+  const carouselImg = box.querySelector('#carouselImg');
+  const carouselNext = box.querySelector('#carouselNext');
+  const dotEls = box.querySelectorAll('.pd-dot');
+  function showImage(i){
+    carouselIndex = (i + p.images.length) % p.images.length;
+    carouselImg.src = p.images[carouselIndex];
+    dotEls.forEach((d, idx)=> d.classList.toggle('active', idx === carouselIndex));
+  }
+  if(p.images.length > 1){
+    carouselNext.addEventListener('click', ()=> showImage(carouselIndex + 1));
+    dotEls.forEach(d=> d.addEventListener('click', ()=> showImage(parseInt(d.getAttribute('data-dot')))));
+  } else {
+    carouselNext.style.display = 'none';
+  }
 
   const state = {};
   p.categories.forEach((cat, ci)=>{
