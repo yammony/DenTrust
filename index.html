@@ -4,997 +4,566 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DenTrust</title>
+<title>DenTrust | مواد طب الأسنان الدراسية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --primary: #0d6efd;
-    --primary-dark: #0a4fc4;
-    --primary-darker: #073a92;
-    --primary-light: #eaf2ff;
-    --primary-lighter: #f5f9ff;
-    --white: #ffffff;
-    --text: #16233a;
-    --muted: #64758d;
-    --border: #dbe6f7;
-    --success: #16a34a;
-    --danger: #e63946;
+  :root {
+    --ink: #161616;
+    --ink-soft: #5b6570;
+    --line: #e3e8ee;
+    --surface: #f6f9fb;
+    --tint: #eef8ff;
+    --brand-blue: #0ea5e9;
+    --brand-blue-deep: #0b84bd;
+    --whatsapp: #25D366;
+    --whatsapp-deep: #1ebd5a;
+    --radius: 10px;
+    --max-width: 1100px;
   }
 
-*{margin:0;padding:0;box-sizing:border-box;}
+- { box-sizing: border-box; }
 
-html{scroll-behavior:smooth;}
+html, body {
+margin: 0;
+padding: 0;
+}
 
-body{
-font-family: ‘Tahoma’, ‘Segoe UI’, Arial, sans-serif;
-background: linear-gradient(180deg,#f3f8ff 0%, #ffffff 45%);
-color: var(–text);
-min-height: 100vh;
-overflow-x: hidden;
+body {
+font-family: ‘Tajawal’, sans-serif;
+color: var(–ink);
+background: #ffffff;
 line-height: 1.6;
+-webkit-font-smoothing: antialiased;
 }
 
-a{ text-decoration:none; }
+a { text-decoration: none; color: inherit; }
 
-/* ===================== HEADER ===================== */
-header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-background: rgba(255,255,255,0.92);
-backdrop-filter: blur(8px);
-padding: 14px 22px;
-box-shadow: 0 2px 16px rgba(13,110,253,0.09);
-position: sticky;
-top:0;
-z-index: 500;
+button { font-family: inherit; cursor: pointer; }
+
+:focus-visible {
+outline: 3px solid var(–brand-blue);
+outline-offset: 2px;
 }
 
-.header-side{
-display:flex;
-align-items:center;
-min-width: 100px;
-}
-.header-side.left{ justify-content:flex-start; }
-.header-side.right{ justify-content:flex-end; }
+/* ––––– Header ––––– */
 
-.logo{
-flex:1;
-text-align:center;
-font-size: 27px;
-font-weight: 800;
-letter-spacing: 0.4px;
-color: var(–primary-darker);
-display:flex;
-align-items:center;
-justify-content:center;
-gap:8px;
-}
-.logo .tooth{
-font-size: 26px;
-}
-.logo span.accent{
-color: var(–primary);
+.site-header {
+border-bottom: 1px solid var(–line);
+padding: 18px 24px;
 }
 
-.login-btn{
-background: var(–primary);
-color: var(–white);
-border:none;
-padding: 10px 22px;
-border-radius: 30px;
-font-size: 15px;
-font-weight: 700;
-cursor:pointer;
-transition: all 0.25s ease;
-box-shadow: 0 4px 14px rgba(13,110,253,0.3);
-font-family: inherit;
-}
-.login-btn:hover{
-background: var(–primary-dark);
-transform: translateY(-2px);
-box-shadow: 0 6px 18px rgba(13,110,253,0.4);
-}
-.login-btn:active{ transform: translateY(0); }
-
-.hamburger{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-gap:5px;
-width: 44px;
-height: 44px;
-background: var(–primary-light);
-border:none;
-border-radius: 12px;
-cursor:pointer;
-transition: background 0.2s;
-}
-.hamburger:hover{ background:#dbe9ff; }
-.hamburger span{
-width: 22px;
-height: 3px;
-background: var(–primary);
-border-radius: 3px;
-transition: all 0.3s ease;
-}
-.hamburger.active span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
-.hamburger.active span:nth-child(2){ opacity:0; }
-.hamburger.active span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
-
-/* ===================== HERO ===================== */
-.hero{
-text-align:center;
-padding: 90px 20px 100px;
-position: relative;
-overflow:hidden;
-}
-.hero::before{
-content:””;
-position:absolute;
-top:-120px;
-right:-120px;
-width:340px;
-height:340px;
-background: radial-gradient(circle, rgba(13,110,253,0.12) 0%, transparent 70%);
-border-radius:50%;
-}
-.hero::after{
-content:””;
-position:absolute;
-bottom:-140px;
-left:-140px;
-width:340px;
-height:340px;
-background: radial-gradient(circle, rgba(13,110,253,0.1) 0%, transparent 70%);
-border-radius:50%;
+.header-grid {
+max-width: var(–max-width);
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr auto 1fr;
+align-items: center;
+gap: 16px;
 }
 
-.hero-badge{
-display:inline-block;
-background: var(–primary-light);
-color: var(–primary-dark);
-font-size: 13.5px;
-font-weight: 700;
-padding: 7px 18px;
-border-radius: 30px;
-margin-bottom: 22px;
-position: relative;
-z-index:1;
-}
-
-.hero-icon{
-font-size: 62px;
-margin-bottom: 18px;
-position: relative;
-z-index:1;
-}
-
-.hero h1{
-font-size: 40px;
-font-weight: 800;
-color: var(–primary-darker);
-margin-bottom: 18px;
-position: relative;
-z-index:1;
-}
-.hero h1 span{ color: var(–primary); }
-
-.hero p{
-color: var(–muted);
-font-size: 17.5px;
-max-width: 600px;
-margin: 0 auto 34px;
-position: relative;
-z-index:1;
-}
-
-.hero-btn{
-background: linear-gradient(135deg, var(–primary), var(–primary-dark));
-color:var(–white);
-border:none;
-padding: 16px 42px;
-font-size: 17px;
-font-weight: 700;
-border-radius: 40px;
-cursor:pointer;
-box-shadow: 0 10px 28px rgba(13,110,253,0.35);
-transition: all 0.3s ease;
-position: relative;
-z-index:1;
-font-family: inherit;
-}
-.hero-btn:hover{
-transform: translateY(-3px);
-box-shadow: 0 14px 32px rgba(13,110,253,0.45);
-}
-
-.features{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap: 22px;
-max-width: 900px;
-margin: 60px auto 0;
-padding: 0 20px;
-position: relative;
-z-index: 1;
-}
-.feature-card{
-background: var(–white);
-border: 1px solid var(–border);
-border-radius: 16px;
-padding: 26px 22px;
-width: 220px;
-text-align:center;
-box-shadow: 0 6px 20px rgba(13,110,253,0.06);
-transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.feature-card:hover{
-transform: translateY(-6px);
-box-shadow: 0 14px 28px rgba(13,110,253,0.15);
-}
-.feature-card .icon{
-font-size: 32px;
-margin-bottom: 12px;
-}
-.feature-card h3{
-font-size: 16px;
-color: var(–text);
-margin-bottom: 8px;
-}
-.feature-card p{
-font-size: 13.5px;
-color: var(–muted);
-}
-
-footer{
-text-align:center;
-padding: 30px 20px;
-color: var(–muted);
-font-size: 13.5px;
-border-top: 1px solid var(–border);
-background: var(–white);
-}
-footer b{ color: var(–primary-dark); }
-
-/* ===================== OVERLAY ===================== */
-.overlay{
-position: fixed;
-inset:0;
-background: rgba(8,22,45,0.5);
-opacity:0;
-visibility:hidden;
-transition: opacity 0.3s ease;
-z-index: 600;
-}
-.overlay.show{ opacity:1; visibility:visible; }
-
-/* ===================== MODAL ===================== */
-.modal{
-position: fixed;
-top:50%;
-left:50%;
-transform: translate(-50%,-42%);
-background: var(–white);
-width: 92%;
-max-width: 410px;
-border-radius: 20px;
-padding: 32px 28px;
-box-shadow: 0 25px 60px rgba(0,0,0,0.28);
-z-index: 700;
-opacity:0;
-visibility:hidden;
-transition: all 0.35s cubic-bezier(.25,.8,.25,1);
-}
-.modal.show{
-opacity:1;
-visibility:visible;
-transform: translate(-50%,-50%);
-}
-
-.modal-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom: 24px;
-}
-.modal-header h2{
-color: var(–primary-darker);
-font-size: 21px;
-font-weight: 800;
-}
-.close-btn{
-background: var(–primary-light);
-border:none;
-width: 34px;
-height:34px;
-border-radius:50%;
-font-size: 18px;
-color: var(–primary);
-cursor:pointer;
-display:flex;
-align-items:center;
-justify-content:center;
-transition: background 0.2s, transform 0.2s;
-}
-.close-btn:hover{ background:#d3e4fb; transform: rotate(90deg); }
-
-.modal-step{ display:none; }
-.modal-step.active{ display:block; animation: fadeIn 0.4s ease; }
-
-@keyframes fadeIn{
-from{ opacity:0; transform: translateY(10px); }
-to{ opacity:1; transform: translateY(0); }
-}
-
-.field-label{
-display:block;
+.tagline {
 font-size: 14px;
-color: var(–muted);
-margin-bottom: 9px;
-font-weight: 600;
+font-weight: 500;
+color: var(–ink);
+justify-self: start;
+letter-spacing: 0.2px;
 }
 
-.phone-input-wrap{
-display:flex;
-align-items:center;
-border: 1.6px solid var(–border);
-border-radius: 13px;
-padding: 6px 14px;
-margin-bottom: 20px;
-transition: border-color 0.2s, box-shadow 0.2s;
-}
-.phone-input-wrap:focus-within{
-border-color: var(–primary);
-box-shadow: 0 0 0 4px rgba(13,110,253,0.1);
-}
-.phone-input-wrap span{
-color: var(–muted);
-font-size: 15px;
-font-weight:600;
-padding-left: 10px;
-border-left: 1.5px solid var(–border);
-margin-left: 10px;
-}
-.phone-input-wrap input{
-border:none;
-outline:none;
-flex:1;
-padding: 12px 6px;
-font-size: 16px;
-font-family: inherit;
-text-align: right;
-direction: ltr;
+.tagline .accent { color: var(–brand-blue); font-weight: 700; }
+
+.logo {
+justify-self: center;
+font-size: 28px;
+font-weight: 900;
+white-space: nowrap;
 }
 
-.error-msg{
-color: var(–danger);
-font-size: 13px;
-margin: -12px 0 14px;
-display:none;
-font-weight: 600;
-}
-.error-msg.show{ display:block; }
+.logo .den { color: #000000; }
+.logo .trust { color: var(–brand-blue); }
 
-.otp-hint{
-font-size: 14px;
-color: var(–muted);
-margin-bottom: 20px;
-line-height: 1.8;
-}
-.otp-hint b{ color: var(–primary-dark); direction: ltr; display:inline-block; }
-
-.otp-inputs{
-display:flex;
-justify-content:center;
-gap: 12px;
-margin-bottom: 22px;
-direction: ltr;
-}
-.otp-inputs input{
-width: 48px;
-height: 55px;
-text-align:center;
-font-size: 22px;
-font-weight:700;
-border: 1.6px solid var(–border);
-border-radius: 12px;
-outline:none;
-transition: border-color 0.2s, box-shadow 0.2s;
-color: var(–primary-darker);
-}
-.otp-inputs input:focus{
-border-color: var(–primary);
-box-shadow: 0 0 0 4px rgba(13,110,253,0.1);
-}
-
-.resend-row{
-text-align:center;
-font-size: 13.5px;
-color: var(–muted);
-margin-bottom: 20px;
-}
-.resend-row button{
-background:none;
-border:none;
-color: var(–primary);
-font-weight:700;
-cursor:pointer;
-font-size: 13.5px;
-font-family: inherit;
-}
-.resend-row button:disabled{
-color: var(–muted);
-cursor:not-allowed;
-}
-
-.primary-btn{
-width:100%;
-background: linear-gradient(135deg, var(–primary), var(–primary-dark));
-color: var(–white);
-border:none;
-padding: 14px;
-border-radius: 13px;
-font-size: 16.5px;
-font-weight: 700;
-cursor:pointer;
-transition: transform 0.2s ease, box-shadow 0.2s ease;
-font-family: inherit;
-box-shadow: 0 8px 20px rgba(13,110,253,0.28);
-}
-.primary-btn:hover{ transform: translateY(-2px); }
-.primary-btn:active{ transform: translateY(0); }
-
-.link-btn{
-display:block;
-width:100%;
-text-align:center;
-background:none;
-border:none;
-color: var(–primary);
-font-size: 14px;
-margin-top: 16px;
-cursor:pointer;
-font-weight:700;
-font-family: inherit;
-}
-.link-btn:hover{ text-decoration: underline; }
-
-.success-box{
-text-align:center;
-padding: 6px 0 4px;
-}
-.success-box .check{
-width: 76px;
-height: 76px;
-background: var(–primary-light);
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size: 36px;
-color: var(–success);
-margin: 0 auto 20px;
-animation: pop 0.4s ease;
-}
-@keyframes pop{
-0%{ transform: scale(0); }
-70%{ transform: scale(1.15); }
-100%{ transform: scale(1); }
-}
-.success-box h3{
-font-size: 19px;
-color: var(–text);
-margin-bottom: 8px;
-}
-.success-box p{
-color: var(–muted);
-margin-bottom: 22px;
-font-size: 14.5px;
-}
-
-/* ===================== TOAST ===================== */
-.toast{
-position: fixed;
-bottom: 30px;
-left: 50%;
-transform: translateX(-50%) translateY(30px);
-background: var(–text);
-color: var(–white);
-padding: 14px 26px;
-border-radius: 40px;
-font-size: 14.5px;
-font-weight: 600;
-display:flex;
-align-items:center;
+.whatsapp-btn {
+justify-self: end;
+display: inline-flex;
+align-items: center;
 gap: 10px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-z-index: 900;
-opacity:0;
-visibility:hidden;
-transition: all 0.4s ease;
-}
-.toast.show{
-opacity:1;
-visibility:visible;
-transform: translateX(-50%) translateY(0);
-}
-.toast .toast-icon{
-color: var(–success);
-font-size: 18px;
+background: #ffffff;
+border: 1.5px solid var(–whatsapp);
+border-radius: 999px;
+padding: 8px 16px 8px 10px;
+transition: background 0.15s ease, transform 0.15s ease;
 }
 
-/* ===================== SIDEBAR ===================== */
-.sidebar{
-position: fixed;
-top:0;
-right:-320px;
-width: 310px;
-max-width: 86%;
-height:100%;
-background: var(–white);
-box-shadow: -8px 0 34px rgba(0,0,0,0.18);
-z-index: 650;
-transition: right 0.4s cubic-bezier(.25,.8,.25,1);
-display:flex;
-flex-direction:column;
-}
-.sidebar.open{ right:0; }
-
-.sidebar-header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding: 20px;
-background: linear-gradient(135deg, var(–primary), var(–primary-darker));
-color: var(–white);
-}
-.sidebar-header h3{
-font-size: 18px;
-font-weight: 800;
-display:flex;
-align-items:center;
-gap:8px;
-}
-.sidebar-header .close-btn{
-background: rgba(255,255,255,0.22);
-color: var(–white);
-}
-.sidebar-header .close-btn:hover{
-background: rgba(255,255,255,0.35);
+.whatsapp-btn:hover {
+background: #f0fdf5;
+transform: translateY(-1px);
 }
 
-.sidebar-content{
-overflow-y:auto;
-padding: 12px 0 30px;
-flex:1;
+.whatsapp-btn .wa-icon {
+width: 30px;
+height: 30px;
+border-radius: 50%;
+background: var(–whatsapp);
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
 }
-.sidebar-content::-webkit-scrollbar{ width:6px; }
-.sidebar-content::-webkit-scrollbar-thumb{ background: var(–border); border-radius:10px; }
 
-.year-item{
-border-bottom: 1px solid var(–border);
+.whatsapp-btn .wa-icon svg {
+width: 17px;
+height: 17px;
+fill: #ffffff;
 }
-.year-title{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding: 17px 22px;
-cursor:pointer;
-font-weight:700;
-color: var(–text);
-font-size: 15.5px;
-transition: background 0.2s;
+
+.whatsapp-btn span {
+color: #161616;
+font-size: 14px;
+font-weight: 700;
 }
-.year-title:hover{ background: var(–primary-lighter); }
-.year-title .year-label{
-display:flex;
-align-items:center;
-gap:10px;
+
+@media (max-width: 720px) {
+.header-grid {
+grid-template-columns: 1fr;
+justify-items: center;
+text-align: center;
+gap: 10px;
 }
-.year-title .year-num{
-width: 28px;
-height: 28px;
-background: var(–primary-light);
-color: var(–primary-dark);
-border-radius: 8px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size: 13px;
-font-weight:800;
+.tagline { justify-self: center; font-size: 12px; }
+.whatsapp-btn { justify-self: center; }
 }
-.year-title .arrow{
-color: var(–primary);
-transition: transform 0.3s ease;
+
+/* ––––– Hero / Section heading ––––– */
+
+.hero {
+max-width: var(–max-width);
+margin: 0 auto;
+padding: 56px 24px 8px;
+text-align: center;
+}
+
+.hero h1 {
+font-size: clamp(26px, 4vw, 38px);
+font-weight: 900;
+margin: 0 0 8px;
+}
+
+.hero p {
+color: var(–ink-soft);
+font-size: 15px;
+margin: 0;
+}
+
+/* ––––– Year tabs ––––– */
+
+.years-wrap {
+max-width: var(–max-width);
+margin: 32px auto 0;
+padding: 0 24px;
+}
+
+.years-tabs {
+display: flex;
+flex-direction: row;
+justify-content: center;
+flex-wrap: wrap;
+gap: 8px;
+border-bottom: 1px solid var(–line);
+padding-bottom: 0;
+}
+
+.year-tab {
+background: none;
+border: none;
+padding: 14px 20px;
+font-size: 16px;
+font-weight: 700;
+color: var(–ink-soft);
+border-bottom: 3px solid transparent;
+margin-bottom: -1px;
+transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.year-tab:hover {
+color: var(–ink);
+}
+
+.year-tab.active {
+color: var(–brand-blue-deep);
+border-bottom-color: var(–brand-blue);
+}
+
+.year-tab .num {
+display: inline-block;
+min-width: 22px;
+height: 22px;
+line-height: 22px;
+border-radius: 50%;
+background: var(–surface);
+color: var(–ink-soft);
 font-size: 12px;
-}
-.year-title.open .arrow{ transform: rotate(180deg); }
-.year-title.open{ background: var(–primary-lighter); }
-
-.chapters{
-max-height:0;
-overflow:hidden;
-transition: max-height 0.4s ease;
-background: #f7fafe;
-}
-.chapters.open{ max-height: 220px; }
-.chapters a{
-display:flex;
-align-items:center;
-gap:8px;
-padding: 13px 46px 13px 22px;
-color: var(–muted);
-font-size: 14.5px;
-border-top: 1px solid var(–border);
-transition: color 0.2s, background 0.2s, padding-right 0.2s;
-}
-.chapters a:hover{
-color: var(–primary-dark);
-background: var(–primary-light);
-padding-right: 28px;
-}
-.chapters a::before{
-content:“◂”;
-font-size: 11px;
-color: var(–primary);
+margin-inline-start: 6px;
+transition: background 0.15s ease, color 0.15s ease;
 }
 
-@media (max-width: 480px){
-.logo{ font-size: 21px; }
-.logo .tooth{ font-size: 22px; }
-.login-btn{ padding: 8px 16px; font-size: 13.5px; }
-.hero{ padding: 60px 16px 70px; }
-.hero h1{ font-size: 28px; }
-.hero p{ font-size: 15.5px; }
-.hero-btn{ padding: 14px 34px; font-size: 15.5px; }
-.otp-inputs input{ width: 42px; height: 48px; font-size: 19px; }
-.feature-card{ width: 100%; max-width: 300px; }
+.year-tab.active .num {
+background: var(–brand-blue);
+color: #ffffff;
 }
 
-@media (min-width: 481px) and (max-width: 900px){
-.hero h1{ font-size: 34px; }
+/* ––––– Chapter tabs ––––– */
+
+.chapters-wrap {
+max-width: var(–max-width);
+margin: 22px auto 0;
+padding: 0 24px;
+display: none;
+}
+
+.chapters-wrap.visible {
+display: block;
+}
+
+.chapters-tabs {
+display: flex;
+justify-content: center;
+gap: 10px;
+flex-wrap: wrap;
+}
+
+.chapter-tab {
+background: var(–surface);
+border: 1px solid var(–line);
+border-radius: 999px;
+padding: 9px 20px;
+font-size: 14px;
+font-weight: 500;
+color: var(–ink);
+transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.chapter-tab:hover {
+border-color: var(–brand-blue);
+}
+
+.chapter-tab.active {
+background: var(–brand-blue);
+border-color: var(–brand-blue);
+color: #ffffff;
+}
+
+/* ––––– Products ––––– */
+
+.products-wrap {
+max-width: var(–max-width);
+margin: 0 auto;
+padding: 28px 24px 80px;
+display: none;
+}
+
+.products-wrap.visible {
+display: block;
+}
+
+.products-heading {
+font-size: 14px;
+font-weight: 700;
+color: var(–ink-soft);
+margin: 0 0 16px;
+text-align: center;
+}
+
+.products-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+gap: 18px;
+}
+
+.product-card {
+border: 1px solid var(–line);
+border-radius: var(–radius);
+overflow: hidden;
+background: #ffffff;
+display: flex;
+flex-direction: column;
+}
+
+.product-image {
+aspect-ratio: 4 / 3;
+background: var(–tint);
+color: var(–brand-blue-deep);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 13px;
+font-weight: 500;
+text-align: center;
+padding: 12px;
+}
+
+.product-body {
+padding: 14px 16px 16px;
+display: flex;
+flex-direction: column;
+gap: 8px;
+flex-grow: 1;
+}
+
+.product-title {
+font-size: 15px;
+font-weight: 700;
+margin: 0;
+}
+
+.product-price {
+font-size: 14px;
+color: var(–brand-blue-deep);
+font-weight: 700;
+margin: 0;
+}
+
+.product-order-btn {
+margin-top: auto;
+background: var(–ink);
+color: #ffffff;
+border: none;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+font-weight: 700;
+text-align: center;
+transition: background 0.15s ease;
+}
+
+.product-order-btn:hover {
+background: var(–brand-blue-deep);
+}
+
+/* ––––– Footer ––––– */
+
+.site-footer {
+border-top: 1px solid var(–line);
+padding: 20px 24px;
+text-align: center;
+font-size: 13px;
+color: var(–ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+* {
+transition: none !important;
+}
 }
 </style>
 
 </head>
 <body>
 
-<header>
-  <div class="header-side left">
-    <button class="login-btn" id="openLoginBtn">تسجيل الدخول</button>
-  </div>
-
-  <div class="logo">
-    <span class="tooth">🦷</span>
-    <span>Den<span class="accent">Trust</span></span>
-  </div>
-
-  <div class="header-side right">
-    <button class="hamburger" id="hamburgerBtn" aria-label="فتح القائمة">
-      <span></span><span></span><span></span>
-    </button>
+<header class="site-header">
+  <div class="header-grid">
+    <div class="tagline">
+      <span class="accent">D</span>ental.<span class="accent">E</span>asy.<span class="accent">N</span>oble.<span class="accent">TRUST</span>
+    </div>
+    <div class="logo"><span class="den">Den</span><span class="trust">Trust</span></div>
+    <a class="whatsapp-btn" href="https://wa.me/966570291254" target="_blank" rel="noopener">
+      <span class="wa-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.6 6.32A8.8 8.8 0 0 0 12.02 3.5c-4.87 0-8.83 3.95-8.83 8.83a8.8 8.8 0 0 0 1.18 4.42L3.5 20.5l3.86-1.01a8.8 8.8 0 0 0 4.66 1.34h.01c4.87 0 8.83-3.95 8.83-8.83a8.78 8.78 0 0 0-2.87-6.68zm-5.58 13.6h-.01a7.34 7.34 0 0 1-3.74-1.02l-.27-.16-2.78.73.74-2.71-.18-.28a7.33 7.33 0 0 1-1.13-3.92c0-4.06 3.31-7.36 7.38-7.36a7.35 7.35 0 0 1 7.36 7.37c0 4.06-3.3 7.35-7.37 7.35zm4.04-5.51c-.22-.11-1.3-.64-1.5-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.11-.66-.59-1.11-1.32-1.24-1.54-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.79.77-.79 1.87s.81 2.17.92 2.32c.11.15 1.6 2.44 3.87 3.42.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.3-.53 1.49-1.04.18-.51.18-.94.13-1.03-.05-.09-.2-.15-.42-.26z"/></svg>
+      </span>
+      <span>(أطلب الآن عبر الواتساب)</span>
+    </a>
   </div>
 </header>
 
 <section class="hero">
-  <span class="hero-badge">منصة طلاب طب الأسنان الأولى</span>
-  <div class="hero-icon">🦷</div>
-  <h1>مرحباً بك في <span>DenTrust</span></h1>
-  <p>منصتك التعليمية الموثوقة لطلاب كلية طب الأسنان. محتوى دراسي منظم لكل سنة وفصل دراسي، بواجهة سهلة وسريعة تواكب رحلتك الأكاديمية من أول يوم حتى التخرج.</p>
-  <button class="hero-btn" id="heroCta">ابدأ رحلتك التعليمية الآن</button>
-
-  <div class="features">
-    <div class="feature-card">
-      <div class="icon">📚</div>
-      <h3>محتوى شامل</h3>
-      <p>ملخصات ومحاضرات لكل الفصول الدراسية الخمسة</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🔒</div>
-      <h3>دخول آمن</h3>
-      <p>تسجيل دخول موثوق برمز تحقق عبر الهاتف</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">📱</div>
-      <h3>متاح دائماً</h3>
-      <p>يعمل بسلاسة على الجوال والتابلت والكمبيوتر</p>
-    </div>
-  </div>
+  <h1>(اختر السنة)</h1>
+  <p>حدد سنتك الدراسية ثم الفصل، لعرض المواد الخاصة به</p>
 </section>
 
-<footer>
-  جميع الحقوق محفوظة © 2026 — <b>DenTrust</b>
+<div class="years-wrap">
+  <div class="years-tabs" id="yearsTabs" role="tablist"></div>
+</div>
+
+<div class="chapters-wrap" id="chaptersWrap">
+  <div class="chapters-tabs" id="chaptersTabs" role="tablist"></div>
+</div>
+
+<div class="products-wrap" id="productsWrap">
+  <p class="products-heading" id="productsHeading"></p>
+  <div class="products-grid" id="productsGrid"></div>
+</div>
+
+<footer class="site-footer">
+  جميع الحقوق محفوظة &copy; DenTrust
 </footer>
 
-<div class="overlay" id="overlay"></div>
-
-<div class="modal" id="loginModal" role="dialog" aria-modal="true">
-  <div class="modal-header">
-    <h2 id="modalTitle">تسجيل الدخول</h2>
-    <button class="close-btn" id="closeModalBtn">✕</button>
-  </div>
-
-  <div class="modal-step active" id="stepPhone">
-    <label class="field-label">أدخل رقم هاتفك</label>
-    <div class="phone-input-wrap">
-      <span>+966</span>
-      <input type="tel" id="phoneInput" placeholder="5xxxxxxxx" maxlength="10">
-    </div>
-    <p class="error-msg" id="phoneError">الرجاء إدخال رقم هاتف صحيح مكوّن من 9 أرقام</p>
-    <button class="primary-btn" id="sendCodeBtn">إرسال الكود</button>
-  </div>
-
-  <div class="modal-step" id="stepOtp">
-    <p class="otp-hint">تم إرسال رمز التحقق إلى الرقم <b id="phoneDisplay"></b></p>
-    <div class="otp-inputs">
-      <input type="text" maxlength="1" inputmode="numeric">
-      <input type="text" maxlength="1" inputmode="numeric">
-      <input type="text" maxlength="1" inputmode="numeric">
-      <input type="text" maxlength="1" inputmode="numeric">
-    </div>
-    <p class="error-msg" id="otpError">الرجاء إدخال رمز التحقق كاملاً</p>
-    <div class="resend-row">
-      لم يصلك الرمز؟ <button id="resendBtn" disabled>إعادة الإرسال (<span id="resendTimer">30</span>)</button>
-    </div>
-    <button class="primary-btn" id="confirmOtpBtn">تأكيد</button>
-    <button class="link-btn" id="backToPhoneBtn">تعديل رقم الهاتف</button>
-  </div>
-
-  <div class="modal-step" id="stepSuccess">
-    <div class="success-box">
-      <div class="check">✓</div>
-      <h3>تم تسجيل الدخول بنجاح!</h3>
-      <p>مرحباً بك في منصة DenTrust، يمكنك الآن استكشاف كامل المحتوى الدراسي.</p>
-      <button class="primary-btn" id="finishBtn">الانتقال للصفحة الرئيسية</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast">
-  <span class="toast-icon">✓</span>
-  <span id="toastMsg">تم تسجيل الدخول بنجاح</span>
-</div>
-
-<div class="sidebar" id="sidebar" role="navigation">
-  <div class="sidebar-header">
-    <h3>📖 المحتوى الدراسي</h3>
-    <button class="close-btn" id="closeSidebarBtn">✕</button>
-  </div>
-  <div class="sidebar-content" id="sidebarContent"></div>
-</div>
-
 <script>
-  var years = [
-    "السنة الأولى",
-    "السنة الثانية",
-    "السنة الثالثة",
-    "السنة الرابعة",
-    "السنة الخامسة"
+  const WHATSAPP_NUMBER = "966570291254";
+
+  const YEARS = [
+    { id: "year1", label: "السنة الأولى" },
+    { id: "year2", label: "السنة الثانية" },
+    { id: "year3", label: "السنة الثالثة" },
+    { id: "year4", label: "السنة الرابعة" },
+    { id: "year5", label: "السنة الخامسة" }
   ];
 
-  var arabicOrdinals = ["الأولى","الثانية","الثالثة","الرابعة","الخامسة"];
+  const CHAPTERS = [
+    { id: "ch1", label: "الفصل الأول" },
+    { id: "ch2", label: "الفصل الثاني" }
+  ];
 
-  var sidebarContent = document.getElementById('sidebarContent');
-
-  years.forEach(function(year, index){
-    var yearItem = document.createElement('div');
-    yearItem.className = 'year-item';
-
-    yearItem.innerHTML =
-      '<div class="year-title" data-index="' + index + '">' +
-        '<span class="year-label"><span class="year-num">' + (index + 1) + '</span>' + year + '</span>' +
-        '<span class="arrow">▼</span>' +
-      '</div>' +
-      '<div class="chapters" id="chapters-' + index + '">' +
-        '<a href="#">الفصل الأول</a>' +
-        '<a href="#">الفصل الثاني</a>' +
-      '</div>';
-
-    sidebarContent.appendChild(yearItem);
-  });
-
-  sidebarContent.addEventListener('click', function(e){
-    var title = e.target.closest('.year-title');
-    if(!title) return;
-
-    var index = title.getAttribute('data-index');
-    var chapters = document.getElementById('chapters-' + index);
-    var isOpen = chapters.classList.contains('open');
-
-    document.querySelectorAll('.chapters').forEach(function(c){ c.classList.remove('open'); });
-    document.querySelectorAll('.year-title').forEach(function(t){ t.classList.remove('open'); });
-
-    if(!isOpen){
-      chapters.classList.add('open');
-      title.classList.add('open');
+  const PRODUCTS = {
+    year1: {
+      ch1: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ],
+      ch2: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ]
+    },
+    year2: {
+      ch1: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ],
+      ch2: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ]
+    },
+    year3: {
+      ch1: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ],
+      ch2: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ]
+    },
+    year4: {
+      ch1: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ],
+      ch2: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ]
+    },
+    year5: {
+      ch1: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ],
+      ch2: [
+        { title: "اسم المنتج التجريبي", price: "0.00 ريال", image: "صورة المنتج هنا" }
+      ]
     }
-  });
+  };
 
-  var sidebar = document.getElementById('sidebar');
-  var overlay = document.getElementById('overlay');
-  var hamburgerBtn = document.getElementById('hamburgerBtn');
-  var closeSidebarBtn = document.getElementById('closeSidebarBtn');
-  var loginModal = document.getElementById('loginModal');
+  let selectedYear = null;
+  let selectedChapter = null;
 
-  function isAnyPanelOpen(){
-    return sidebar.classList.contains('open') || loginModal.classList.contains('show');
-  }
+  const yearsTabsEl = document.getElementById("yearsTabs");
+  const chaptersWrapEl = document.getElementById("chaptersWrap");
+  const chaptersTabsEl = document.getElementById("chaptersTabs");
+  const productsWrapEl = document.getElementById("productsWrap");
+  const productsHeadingEl = document.getElementById("productsHeading");
+  const productsGridEl = document.getElementById("productsGrid");
 
-  function openSidebar(){
-    sidebar.classList.add('open');
-    overlay.classList.add('show');
-    hamburgerBtn.classList.add('active');
-  }
-  function closeSidebar(){
-    sidebar.classList.remove('open');
-    hamburgerBtn.classList.remove('active');
-    if(!loginModal.classList.contains('show')) overlay.classList.remove('show');
-  }
-
-  hamburgerBtn.addEventListener('click', function(){
-    if(sidebar.classList.contains('open')) closeSidebar();
-    else openSidebar();
-  });
-  closeSidebarBtn.addEventListener('click', closeSidebar);
-
-  var openLoginBtn = document.getElementById('openLoginBtn');
-  var heroCta = document.getElementById('heroCta');
-  var closeModalBtn = document.getElementById('closeModalBtn');
-
-  var stepPhone = document.getElementById('stepPhone');
-  var stepOtp = document.getElementById('stepOtp');
-  var stepSuccess = document.getElementById('stepSuccess');
-  var modalTitle = document.getElementById('modalTitle');
-
-  var phoneInput = document.getElementById('phoneInput');
-  var phoneError = document.getElementById('phoneError');
-  var phoneDisplay = document.getElementById('phoneDisplay');
-  var sendCodeBtn = document.getElementById('sendCodeBtn');
-  var backToPhoneBtn = document.getElementById('backToPhoneBtn');
-  var confirmOtpBtn = document.getElementById('confirmOtpBtn');
-  var otpError = document.getElementById('otpError');
-  var finishBtn = document.getElementById('finishBtn');
-  var resendBtn = document.getElementById('resendBtn');
-  var resendTimer = document.getElementById('resendTimer');
-
-  var otpInputs = document.querySelectorAll('.otp-inputs input');
-  var resendInterval = null;
-
-  function openModal(){
-    loginModal.classList.add('show');
-    overlay.classList.add('show');
-    showStep(stepPhone, 'تسجيل الدخول');
-  }
-
-  function closeModal(){
-    loginModal.classList.remove('show');
-    if(!sidebar.classList.contains('open')) overlay.classList.remove('show');
-    setTimeout(function(){
-      phoneInput.value = '';
-      phoneError.classList.remove('show');
-      otpError.classList.remove('show');
-      otpInputs.forEach(function(i){ i.value = ''; });
-      clearInterval(resendInterval);
-      showStep(stepPhone, 'تسجيل الدخول');
-    }, 300);
-  }
-
-  function showStep(step, title){
-    [stepPhone, stepOtp, stepSuccess].forEach(function(s){ s.classList.remove('active'); });
-    step.classList.add('active');
-    modalTitle.textContent = title;
-  }
-
-  function startResendTimer(){
-    var seconds = 30;
-    resendBtn.disabled = true;
-    resendTimer.textContent = seconds;
-    clearInterval(resendInterval);
-    resendInterval = setInterval(function(){
-      seconds--;
-      resendTimer.textContent = seconds;
-      if(seconds <= 0){
-        clearInterval(resendInterval);
-        resendBtn.disabled = false;
-        resendBtn.innerHTML = 'إعادة الإرسال';
-      }
-    }, 1000);
-  }
-
-  openLoginBtn.addEventListener('click', openModal);
-  heroCta.addEventListener('click', openModal);
-  closeModalBtn.addEventListener('click', closeModal);
-
-  overlay.addEventListener('click', function(){
-    closeModal();
-    closeSidebar();
-  });
-
-  sendCodeBtn.addEventListener('click', function(){
-    var phone = phoneInput.value.trim();
-    if(phone.length < 9 || !/^[0-9]+$/.test(phone)){
-      phoneError.classList.add('show');
-      phoneInput.style.borderColor = 'var(--danger)';
-      phoneInput.focus();
-      return;
-    }
-    phoneError.classList.remove('show');
-    phoneInput.style.borderColor = '';
-    phoneDisplay.textContent = '+966 ' + phone;
-    showStep(stepOtp, 'رمز التحقق');
-    startResendTimer();
-    setTimeout(function(){ otpInputs[0].focus(); }, 350);
-  });
-
-  backToPhoneBtn.addEventListener('click', function(){
-    clearInterval(resendInterval);
-    showStep(stepPhone, 'تسجيل الدخول');
-  });
-
-  resendBtn.addEventListener('click', function(){
-    if(resendBtn.disabled) return;
-    otpInputs.forEach(function(i){ i.value = ''; });
-    otpInputs[0].focus();
-    startResendTimer();
-  });
-
-  otpInputs.forEach(function(input, idx){
-    input.addEventListener('input', function(){
-      input.value = input.value.replace(/[^0-9]/g, '');
-      otpError.classList.remove('show');
-      if(input.value && idx < otpInputs.length - 1){
-        otpInputs[idx + 1].focus();
-      }
+  function buildYearTabs() {
+    YEARS.forEach((year, index) => {
+      const btn = document.createElement("button");
+      btn.className = "year-tab";
+      btn.setAttribute("role", "tab");
+      btn.dataset.yearId = year.id;
+      btn.innerHTML = year.label + '<span class="num">' + (index + 1) + '</span>';
+      btn.addEventListener("click", () => selectYear(year.id));
+      yearsTabsEl.appendChild(btn);
     });
-    input.addEventListener('keydown', function(e){
-      if(e.key === 'Backspace' && !input.value && idx > 0){
-        otpInputs[idx - 1].focus();
-      }
-    });
-  });
-
-  confirmOtpBtn.addEventListener('click', function(){
-    var code = Array.prototype.map.call(otpInputs, function(i){ return i.value; }).join('');
-    if(code.length < 4){
-      otpError.classList.add('show');
-      return;
-    }
-    otpError.classList.remove('show');
-    clearInterval(resendInterval);
-    showStep(stepSuccess, 'تم بنجاح');
-  });
-
-  finishBtn.addEventListener('click', function(){
-    closeModal();
-    showToast('تم تسجيل الدخول بنجاح 🎉');
-  });
-
-  phoneInput.addEventListener('input', function(){
-    phoneInput.style.borderColor = '';
-    phoneError.classList.remove('show');
-  });
-
-  var toast = document.getElementById('toast');
-  var toastMsg = document.getElementById('toastMsg');
-  var toastTimeout = null;
-
-  function showToast(message){
-    toastMsg.textContent = message;
-    toast.classList.add('show');
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(function(){
-      toast.classList.remove('show');
-    }, 3200);
   }
 
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){
-      closeModal();
-      closeSidebar();
-    }
-  });
+  function selectYear(yearId) {
+    selectedYear = yearId;
+    selectedChapter = null;
+
+    document.querySelectorAll(".year-tab").forEach(el => {
+      el.classList.toggle("active", el.dataset.yearId === yearId);
+    });
+
+    buildChapterTabs();
+    chaptersWrapEl.classList.add("visible");
+    productsWrapEl.classList.remove("visible");
+  }
+
+  function buildChapterTabs() {
+    chaptersTabsEl.innerHTML = "";
+    CHAPTERS.forEach(chapter => {
+      const btn = document.createElement("button");
+      btn.className = "chapter-tab";
+      btn.setAttribute("role", "tab");
+      btn.dataset.chapterId = chapter.id;
+      btn.textContent = chapter.label;
+      btn.addEventListener("click", () => selectChapter(chapter.id));
+      chaptersTabsEl.appendChild(btn);
+    });
+  }
+
+  function selectChapter(chapterId) {
+    selectedChapter = chapterId;
+
+    document.querySelectorAll(".chapter-tab").forEach(el => {
+      el.classList.toggle("active", el.dataset.chapterId === chapterId);
+    });
+
+    renderProducts();
+    productsWrapEl.classList.add("visible");
+  }
+
+  function renderProducts() {
+    const yearLabel = YEARS.find(y => y.id === selectedYear).label;
+    const chapterLabel = CHAPTERS.find(c => c.id === selectedChapter).label;
+
+    productsHeadingEl.textContent = "مواد " + yearLabel + " - " + chapterLabel;
+
+    const items = (PRODUCTS[selectedYear] && PRODUCTS[selectedYear][selectedChapter]) || [];
+
+    productsGridEl.innerHTML = "";
+
+    items.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+
+      const image = document.createElement("div");
+      image.className = "product-image";
+      image.textContent = product.image;
+
+      const body = document.createElement("div");
+      body.className = "product-body";
+
+      const title = document.createElement("p");
+      title.className = "product-title";
+      title.textContent = product.title;
+
+      const price = document.createElement("p");
+      price.className = "product-price";
+      price.textContent = product.price;
+
+      const orderBtn = document.createElement("a");
+      orderBtn.className = "product-order-btn";
+      orderBtn.textContent = "اطلب الآن";
+      orderBtn.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" +
+        encodeURIComponent("مرحباً، أرغب بطلب: " + product.title + " (" + yearLabel + " - " + chapterLabel + ")");
+      orderBtn.target = "_blank";
+      orderBtn.rel = "noopener";
+
+      body.appendChild(title);
+      body.appendChild(price);
+      body.appendChild(orderBtn);
+
+      card.appendChild(image);
+      card.appendChild(body);
+
+      productsGridEl.appendChild(card);
+    });
+  }
+
+  buildYearTabs();
 </script>
 
 </body>
