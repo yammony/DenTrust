@@ -209,7 +209,7 @@
     text-align:center;
     font-size:20px;
     font-weight:700;
-    color:var(--green-active);
+    color:#000000;
     line-height:1.8;
   }
 
@@ -346,15 +346,24 @@
   .item-row.sub-item{ padding-right:18px; }
   .item-name-wrap{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
+    align-items:center;
+    gap:8px;
     flex:1 1 auto;
     min-width:120px;
+    flex-wrap:wrap;
+  }
+  .item-name-wrap.stacked{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
   }
   .item-name{
     font-size:15px;
     font-weight:700;
     color:#222;
     transition:color .2s ease;
+    white-space:nowrap;
   }
   .item-name.active{
     color:var(--green-active);
@@ -362,7 +371,7 @@
   .item-note{
     font-size:12px;
     color:#888;
-    margin-top:2px;
+    margin-top:0;
   }
   .item-price{
     font-size:14px;
@@ -420,16 +429,15 @@
   }
   .total-bar:hover{ transform:translateY(-2px); }
   .total-bar .total-label{
-    font-size:15px;
+    font-size:16px;
     font-weight:700;
     color:#fff;
-    margin-bottom:4px;
+    margin-bottom:12px;
   }
-  .total-bar .total-amount{
+  .total-bar .total-label span{
     font-size:20px;
     font-weight:900;
     color:#fff;
-    margin-bottom:10px;
   }
   .total-bar .order-cta{
     font-size:15px;
@@ -558,7 +566,7 @@ const catalogData = {
       ],
       sections: [
         {
-          name: null,
+          name: 'تشريح ورسم ونحت الأسنان:',
           items: [
             { name: 'صينية كبيرة' },
             { name: 'شانات' },
@@ -567,7 +575,7 @@ const catalogData = {
             { name: 'سكينة شمع' },
             { name: 'منحتة شمع' },
             { name: 'صابون زهر الزيتون' },
-            { name: 'قطعة قماش للتلميع', note: 'نوفرها مجانا عند طلب أي أداة من أدوات المادة' }
+            { name: 'قطعة قماش للتلميع', noPrice: true, note: 'نوفرها مجانا عند طلب أي أداة من أدوات المادة' }
           ]
         }
       ]
@@ -583,7 +591,7 @@ const catalogData = {
       ],
       sections: [
         {
-          name: 'ثابتة ١:',
+          name: 'التعويضات الثابتة ١:',
           items: [
             { name: 'صينية' },
             { name: 'شانات' },
@@ -593,12 +601,12 @@ const catalogData = {
             { name: 'فرازاكو اكريل' },
             { name: 'أدوات فحص' },
             { subheader: 'سنابل تحضير زرقاء حجم وسط وتشمل:' },
-            { name: 'شاقة', sub: true },
-            { name: 'لهب شمعة', sub: true },
-            { name: 'مخروطية مدببة', sub: true },
-            { name: 'مخروطية مدورة', sub: true },
-            { name: 'مخروطية مقطوعة', sub: true },
-            { name: 'سنبلة فصل', sub: true },
+            { name: '1- شاقة', sub: true },
+            { name: '2- لهب شمعة', sub: true },
+            { name: '3- مخروطية مدببة', sub: true },
+            { name: '4- مخروطية مدورة', sub: true },
+            { name: '5- مخروطية مقطوعة', sub: true },
+            { name: '6- سنبلة فصل', sub: true },
             { name: 'شريط مسندة MOD' },
             { name: 'لوح شمع' },
             { name: 'تورش' },
@@ -610,7 +618,9 @@ const catalogData = {
         {
           name: 'مواد سنية تعويضية:',
           items: [
-            { name: 'صينية - شانة - نايلونة', noPrice: true, note: 'تم ذكرهم في مادة ثابتة 1' },
+            { name: 'صينية', noPrice: true, note: 'تم ذكره في مادة ثابتة 1' },
+            { name: 'شانات', noPrice: true, note: 'تم ذكره في مادة ثابتة 1' },
+            { name: 'نايلونة', noPrice: true, note: 'تم ذكره في مادة ثابتة 1' },
             { name: 'ألجينات' },
             { name: 'مثال جبسي علوي وسفلي' },
             { name: 'كجة مطاطية وملوقة' },
@@ -639,7 +649,7 @@ const catalogData = {
       ],
       sections: [
         {
-          name: 'مداواة أسنان ترميمية ١:',
+          name: 'مداواة الأسنان الترميمية ١:',
           items: [
             { name: 'صينية' },
             { name: 'شانات' },
@@ -649,13 +659,13 @@ const catalogData = {
             { name: 'أدوات فحص' },
             { name: 'كحول' },
             { name: 'فرشاة اسنان' },
-            { subheader: 'سنابل:' },
-            { name: 'قمعية', sub: true },
-            { name: 'شاقة', sub: true },
-            { name: 'كروية', sub: true },
-            { name: 'كبسولات املغم عيار 1', note: 'وسطيا يكفي 7' },
-            { name: 'كبسولات املغم عيار 2', note: 'وسطيا يكفي 7' },
-            { name: 'كبسولات املغم عيار 3', note: 'لن تحتاجوها غالبا' },
+            { subheader: 'سنابل وتشمل:' },
+            { name: '1- قمعية', sub: true },
+            { name: '2- شاقة', sub: true },
+            { name: '3- كروية', sub: true },
+            { name: 'كبسولات املغم عيار 1', note: '(وسطيا يكفي 7)', notePosition: 'below' },
+            { name: 'كبسولات املغم عيار 2', note: '(وسطيا يكفي 7)', notePosition: 'below' },
+            { name: 'كبسولات املغم عيار 3', note: '(لن تحتاجها غالبا)', notePosition: 'below' },
             { name: 'جرن أملغم' },
             { name: 'مدفع املغم' },
             { name: 'مدك املغم (برأسين)' },
@@ -666,7 +676,7 @@ const catalogData = {
             { name: 'مسندة كاملة MOD مع شريط قياس ٥' },
             { name: 'مسندة جزئية MO/DO مع شرائط بأكثر من قياس' },
             { name: 'أسنان اكريل' },
-            { name: 'أدوات إنهاء وتلميع', note: 'لن تحتاجوها غالبا' }
+            { name: 'أدوات إنهاء وتلميع', note: '(لن تحتاجها غالبا)', notePosition: 'below' }
           ]
         },
         {
@@ -694,7 +704,7 @@ const catalogData = {
             { name: 'لوحين مزج', noPrice: true, note: 'تم ذكره في مادة الجزئية 1' },
             { name: 'سباتيول', noPrice: true, note: 'تم ذكره في مادة الجزئية 1' },
             { name: 'أداة تبطين' },
-            { name: 'سن اكريل محضر اي صنف', note: 'يتم عمله في جلسة مادة المداواة1' }
+            { name: 'سن اكريل محضر اي صنف', noPrice: true, note: 'يتم عمله في جلسة مادة المداواة1' }
           ]
         }
       ]
@@ -843,10 +853,11 @@ function renderChapter(year, sem){
         const itemId = `${chapterId}_i${itemCounter++}`;
         currentQty[itemId] = { qty: 0, price: DEFAULT_PRICE, name: item.name };
 
+        const stacked = item.notePosition === 'below';
         const row = document.createElement('div');
         row.className = 'item-row' + (item.sub ? ' sub-item' : '');
         row.innerHTML = `
-          <div class="item-name-wrap">
+          <div class="item-name-wrap${stacked ? ' stacked' : ''}">
             <span class="item-name" id="name-${itemId}">${item.name}</span>
             ${item.note ? `<span class="item-note">${item.note}</span>` : ''}
           </div>
@@ -866,8 +877,7 @@ function renderChapter(year, sem){
     const totalBar = document.createElement('div');
     totalBar.className = 'total-bar';
     totalBar.innerHTML = `
-      <div class="total-label">السعر الإجمالي</div>
-      <div class="total-amount" id="total-${chapterId}">0 ل.س</div>
+      <div class="total-label">السعر الإجمالي = <span id="total-${chapterId}">0 ل.س</span></div>
       <div class="order-cta">اضغط هنا للطلب الآن</div>
     `;
     totalBar.addEventListener('click', () => sendOrder(chapterId, data.title));
