@@ -2,7 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
 <title>DenTrust</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +24,7 @@
   html,body{
     width:100%;
     overflow-x:hidden;
+    touch-action:manipulation;
   }
   body{
     font-family:'Tajawal', sans-serif;
@@ -164,8 +166,8 @@
   .semester-title{
     text-align:center;
     font-size:18px;
-    font-weight:700;
-    color:#111;
+    font-weight:800;
+    color:var(--blue);
     margin:18px 0 12px;
   }
   .semesters-tabs{
@@ -223,9 +225,12 @@
     box-shadow:var(--shadow);
     margin-bottom:22px;
     background:#dbe9f5;
+    touch-action:pan-y;
+    user-select:none;
   }
   .gallery-track{
     display:flex;
+    direction:ltr;
     width:100%;
     height:100%;
     transition:transform .35s ease;
@@ -236,6 +241,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
+    direction:rtl;
     background:linear-gradient(135deg,#dbe9f5,#c7dff2);
     font-size:16px;
     font-weight:700;
@@ -248,24 +254,32 @@
     width:100%;
     height:100%;
     object-fit:cover;
+    pointer-events:none;
   }
   .gallery-arrow{
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    width:42px;
-    height:42px;
+    width:52px;
+    height:52px;
     border-radius:50%;
-    background:rgba(255,255,255,0.9);
-    box-shadow:var(--shadow);
+    background:#000000;
+    box-shadow:0 4px 14px rgba(0,0,0,0.35);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:20px;
-    font-weight:900;
-    color:#000;
     z-index:3;
-    transition:opacity .2s ease;
+    transition:opacity .2s ease, transform .15s ease;
+  }
+  .gallery-arrow:active{ transform:translateY(-50%) scale(0.92); }
+  .gallery-arrow svg{
+    width:24px;
+    height:24px;
+    fill:none;
+    stroke:#ffffff;
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
   }
   .gallery-arrow.right{ right:14px; }
   .gallery-arrow.left{ left:14px; }
@@ -290,6 +304,8 @@
     display:flex;
     align-items:center;
     justify-content:center;
+    touch-action:pan-y;
+    user-select:none;
   }
   .modal-content .gallery-slide{
     border-radius:12px;
@@ -340,7 +356,7 @@
     gap:10px;
     padding:10px 4px;
     border-bottom:1px solid #f0f0f0;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
   }
   .item-row:last-child{ border-bottom:none; }
   .item-row.sub-item{ padding-right:18px; }
@@ -348,10 +364,10 @@
     display:flex;
     flex-direction:row;
     align-items:center;
+    flex-wrap:wrap;
     gap:8px;
     flex:1 1 auto;
-    min-width:120px;
-    flex-wrap:wrap;
+    min-width:0;
   }
   .item-name-wrap.stacked{
     flex-direction:column;
@@ -363,7 +379,8 @@
     font-weight:700;
     color:#222;
     transition:color .2s ease;
-    white-space:nowrap;
+    white-space:normal;
+    word-break:break-word;
   }
   .item-name.active{
     color:var(--green-active);
@@ -378,13 +395,15 @@
     font-weight:700;
     color:#333;
     white-space:nowrap;
-    min-width:80px;
+    min-width:70px;
     text-align:center;
+    flex:0 0 auto;
   }
   .qty-control{
     display:flex;
     align-items:center;
     gap:6px;
+    flex:0 0 auto;
   }
   .qty-btn{
     width:30px;
@@ -398,10 +417,11 @@
     align-items:center;
     justify-content:center;
     transition:background .2s ease;
+    flex-shrink:0;
   }
   .qty-btn:hover{ background:#dcebfa; }
   .qty-value{
-    min-width:24px;
+    min-width:20px;
     text-align:center;
     font-weight:800;
     font-size:15px;
@@ -410,11 +430,24 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:10px;
     padding:10px 4px;
     border-bottom:1px solid #f0f0f0;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
   }
   .note-only-row:last-child{ border-bottom:none; }
+  .note-only-row .item-name{
+    flex:1 1 auto;
+    min-width:0;
+  }
+  .note-only-row .item-note-edge{
+    font-size:12px;
+    color:#888;
+    text-align:left;
+    flex:0 0 auto;
+    max-width:48%;
+    white-space:normal;
+  }
 
   /* ===== TOTAL BAR ===== */
   .total-bar{
@@ -841,10 +874,8 @@ function renderChapter(year, sem){
           const row = document.createElement('div');
           row.className = 'note-only-row';
           row.innerHTML = `
-            <div class="item-name-wrap">
-              <span class="item-name">${item.name}</span>
-              ${item.note ? `<span class="item-note">${item.note}</span>` : ''}
-            </div>
+            <span class="item-name">${item.name}</span>
+            ${item.note ? `<span class="item-note-edge">${item.note}</span>` : ''}
           `;
           sectionEl.appendChild(row);
           return;
@@ -934,6 +965,9 @@ function sendOrder(chapterId, chapterTitle){
 }
 
 /* ================== المعرض (Gallery) ================== */
+const ARROW_RIGHT_SVG = '<svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8"/></svg>';
+const ARROW_LEFT_SVG = '<svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8"/></svg>';
+
 function buildGallery(images, chapterId){
   const state = { index: 0 };
   const wrap = document.createElement('div');
@@ -941,6 +975,8 @@ function buildGallery(images, chapterId){
 
   const track = document.createElement('div');
   track.className = 'gallery-track';
+  let dragged = false;
+
   images.forEach(img => {
     const slide = document.createElement('div');
     slide.className = 'gallery-slide';
@@ -949,38 +985,80 @@ function buildGallery(images, chapterId){
     } else {
       slide.textContent = img.label || 'صورة المنتج';
     }
-    slide.addEventListener('click', () => openModal(images, state.index));
+    slide.addEventListener('click', () => {
+      if (dragged) return;
+      openModal(images, state.index);
+    });
     track.appendChild(slide);
   });
   wrap.appendChild(track);
 
   const rightArrow = document.createElement('div');
   rightArrow.className = 'gallery-arrow right';
-  rightArrow.textContent = '›';
+  rightArrow.innerHTML = ARROW_RIGHT_SVG;
   const leftArrow = document.createElement('div');
   leftArrow.className = 'gallery-arrow left';
-  leftArrow.textContent = '‹';
+  leftArrow.innerHTML = ARROW_LEFT_SVG;
 
   function updateArrows(){
     rightArrow.classList.toggle('hidden', state.index >= images.length - 1);
     leftArrow.classList.toggle('hidden', state.index <= 0);
-    track.style.transform = `translateX(${state.index * 100}%)`;
+    track.style.transform = `translateX(${-state.index * 100}%)`;
   }
 
-  rightArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
+  function goNext(){
     if (state.index < images.length - 1){
       state.index += 1;
       updateArrows();
     }
-  });
-  leftArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
+  }
+  function goPrev(){
     if (state.index > 0){
       state.index -= 1;
       updateArrows();
     }
+  }
+
+  rightArrow.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goNext();
   });
+  leftArrow.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goPrev();
+  });
+
+  let startX = 0;
+  let startY = 0;
+  let pointerDown = false;
+
+  wrap.addEventListener('pointerdown', (e) => {
+    pointerDown = true;
+    dragged = false;
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+  wrap.addEventListener('pointermove', (e) => {
+    if (!pointerDown) return;
+    if (Math.abs(e.clientX - startX) > 10) dragged = true;
+  });
+  wrap.addEventListener('pointerup', (e) => {
+    if (!pointerDown) return;
+    pointerDown = false;
+    const diffX = e.clientX - startX;
+    const diffY = e.clientY - startY;
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)){
+      dragged = true;
+      if (diffX < 0){
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
+    setTimeout(() => { dragged = false; }, 50);
+  });
+  wrap.addEventListener('pointercancel', () => { pointerDown = false; });
+  wrap.addEventListener('pointerleave', () => { pointerDown = false; });
 
   wrap.appendChild(rightArrow);
   wrap.appendChild(leftArrow);
@@ -1001,6 +1079,7 @@ function openModal(images, startIndex){
   slideEl.className = 'gallery-slide';
   slideEl.style.width = '100%';
   slideEl.style.height = '100%';
+  slideEl.style.cursor = 'default';
 
   function renderSlide(){
     const img = images[state.index];
@@ -1013,32 +1092,64 @@ function openModal(images, startIndex){
     leftArrow.classList.toggle('hidden', state.index <= 0);
   }
 
-  const rightArrow = document.createElement('div');
-  rightArrow.className = 'gallery-arrow right';
-  rightArrow.textContent = '›';
-  rightArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
+  function goNext(){
     if (state.index < images.length - 1){
       state.index += 1;
       renderSlide();
     }
-  });
-
-  const leftArrow = document.createElement('div');
-  leftArrow.className = 'gallery-arrow left';
-  leftArrow.textContent = '‹';
-  leftArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
+  }
+  function goPrev(){
     if (state.index > 0){
       state.index -= 1;
       renderSlide();
     }
+  }
+
+  const rightArrow = document.createElement('div');
+  rightArrow.className = 'gallery-arrow right';
+  rightArrow.innerHTML = ARROW_RIGHT_SVG;
+  rightArrow.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goNext();
+  });
+
+  const leftArrow = document.createElement('div');
+  leftArrow.className = 'gallery-arrow left';
+  leftArrow.innerHTML = ARROW_LEFT_SVG;
+  leftArrow.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goPrev();
   });
 
   modalContent.appendChild(slideEl);
   modalContent.appendChild(rightArrow);
   modalContent.appendChild(leftArrow);
   renderSlide();
+
+  let startX = 0;
+  let startY = 0;
+  let pointerDown = false;
+
+  modalContent.addEventListener('pointerdown', (e) => {
+    pointerDown = true;
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+  modalContent.addEventListener('pointerup', (e) => {
+    if (!pointerDown) return;
+    pointerDown = false;
+    const diffX = e.clientX - startX;
+    const diffY = e.clientY - startY;
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)){
+      if (diffX < 0){
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
+  });
+  modalContent.addEventListener('pointercancel', () => { pointerDown = false; });
+  modalContent.addEventListener('pointerleave', () => { pointerDown = false; });
 
   modalOverlay.classList.add('open');
 }
