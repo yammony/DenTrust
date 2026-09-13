@@ -295,6 +295,8 @@
     object-fit:cover;
     pointer-events:none;
     -webkit-user-drag:none;
+    -webkit-touch-callout:none;
+    touch-action:none;
   }
   .gallery-dots{
     position:absolute;
@@ -337,7 +339,7 @@
     position:relative;
     width:92%;
     max-width:800px;
-    aspect-ratio:16/10;
+    aspect-ratio:1/1.05;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -351,11 +353,14 @@
   .modal-content .gallery-slide{
     border-radius:12px;
     cursor:default;
+    touch-action:none;
   }
   .modal-content .gallery-slide img{
     pointer-events:auto;
     transform-origin:center center;
     object-fit:contain;
+    touch-action:none;
+    -webkit-touch-callout:none;
   }
   .modal-dots{
     position:absolute;
@@ -1107,7 +1112,7 @@ function buildGallery(images, chapterId){
     const slide = document.createElement('div');
     slide.className = 'gallery-slide';
     if (img.src){
-      slide.innerHTML = `<img src="${img.src}" alt="${img.label || ''}">`;
+      slide.innerHTML = `<img src="${img.src}" alt="${img.label || ''}" draggable="false">`;
     } else {
       slide.textContent = img.label || 'صورة المنتج';
     }
@@ -1236,7 +1241,7 @@ function openModal(images, startIndex){
     const slide = document.createElement('div');
     slide.className = 'gallery-slide';
     if (img.src){
-      slide.innerHTML = `<img src="${img.src}" alt="${img.label || ''}">`;
+      slide.innerHTML = `<img src="${img.src}" alt="${img.label || ''}" draggable="false">`;
     } else {
       slide.textContent = img.label || 'صورة المنتج';
     }
