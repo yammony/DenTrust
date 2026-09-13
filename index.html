@@ -46,9 +46,11 @@
   }
   .header-top-row{
     display:flex;
-    justify-content:flex-end;
+    justify-content:space-between;
     align-items:center;
-    margin-bottom:6px;
+    gap:10px;
+    margin-top:10px;
+    flex-wrap:wrap;
   }
   .whatsapp-btn{
     display:flex;
@@ -86,21 +88,50 @@
     font-size:14px;
     white-space:nowrap;
   }
+  .instagram-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#fff;
+    border:2px solid transparent;
+    background-image:linear-gradient(#fff,#fff), linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
+    background-origin:border-box;
+    background-clip:padding-box, border-box;
+    padding:8px 14px;
+    border-radius:999px;
+    box-shadow:var(--shadow);
+    transition:transform .2s ease;
+  }
+  .instagram-btn:hover{
+    transform:translateY(-2px);
+  }
+  .instagram-btn .ig-icon{
+    width:26px;
+    height:26px;
+    border-radius:8px;
+    background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .instagram-btn .ig-icon svg{
+    width:16px;
+    height:16px;
+    fill:#fff;
+  }
+  .instagram-btn span{
+    color:#000;
+    font-weight:700;
+    font-size:14px;
+    white-space:nowrap;
+  }
   .header-center{
     text-align:center;
     display:flex;
     flex-direction:column;
     align-items:center;
     gap:4px;
-  }
-  .top-phrase{
-    font-size:clamp(13px, 3vw, 17px);
-    font-weight:700;
-    color:#000;
-    letter-spacing:.5px;
-  }
-  .top-phrase .hl{
-    color:var(--blue-light);
   }
   .logo{
     font-size:clamp(28px, 7vw, 42px);
@@ -138,7 +169,7 @@
     margin-bottom:18px;
   }
   .year-tab{
-    background:#fff;
+    background:#ffffff;
     color:#333;
     font-weight:700;
     font-size:15px;
@@ -153,9 +184,9 @@
     border-color:var(--blue-light);
   }
   .year-tab.active{
-    background:linear-gradient(135deg, var(--blue), var(--blue-light));
+    background:#000000;
     color:#fff;
-    box-shadow:0 6px 16px rgba(0,168,255,0.35);
+    box-shadow:0 6px 16px rgba(0,0,0,0.35);
   }
 
   .semesters-wrap{
@@ -326,7 +357,41 @@
     font-size:22px;
     font-weight:800;
     color:#000;
-    margin-bottom:22px;
+    margin-bottom:16px;
+  }
+  .columns-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:#eef4fa;
+    border-radius:12px;
+    padding:10px 14px;
+    margin-bottom:18px;
+    flex-wrap:nowrap;
+  }
+  .columns-header .col-name{
+    flex:1 1 auto;
+    text-align:right;
+    font-size:13px;
+    font-weight:800;
+    color:var(--blue);
+  }
+  .columns-header .col-price{
+    flex:0 0 auto;
+    min-width:70px;
+    text-align:center;
+    font-size:13px;
+    font-weight:800;
+    color:var(--blue);
+  }
+  .columns-header .col-qty{
+    flex:0 0 auto;
+    text-align:center;
+    font-size:13px;
+    font-weight:800;
+    color:var(--blue);
+    white-space:nowrap;
   }
   .section-block{
     background:#fff;
@@ -533,14 +598,19 @@
   }
 
   @media (max-width:480px){
-    .header-top-row{ justify-content:center; margin-bottom:10px; }
-    .whatsapp-btn span{ font-size:12px; }
+    .header-top-row{ justify-content:space-between; margin-top:10px; }
+    .whatsapp-btn span{ font-size:11px; }
+    .instagram-btn span{ font-size:11px; }
+    .whatsapp-btn, .instagram-btn{ padding:8px 10px; }
   }
 </style>
 </head>
 <body>
 
 <header class="site-header">
+  <div class="header-center">
+    <div class="logo"><span class="den">Den</span><span class="trust">Trust</span></div>
+  </div>
   <div class="header-top-row">
     <a class="whatsapp-btn" id="header-wa-btn" target="_blank" rel="noopener">
       <span class="wa-icon">
@@ -548,15 +618,12 @@
       </span>
       <span>تواصل معنا عبر الواتساب</span>
     </a>
-  </div>
-  <div class="header-center">
-    <div class="top-phrase">
-      <span class="hl">D</span>ental.
-      <span class="hl">E</span>asy.
-      <span class="hl">N</span>oble.
-      <span class="hl">TRUST</span>
-    </div>
-    <div class="logo"><span class="den">Den</span><span class="trust">Trust</span></div>
+    <a class="instagram-btn" id="header-ig-btn" target="_blank" rel="noopener">
+      <span class="ig-icon">
+        <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </span>
+      <span>تابعنا على انستغرام</span>
+    </a>
   </div>
 </header>
 
@@ -580,8 +647,9 @@
 
 <script>
 /* ================== إعدادات عامة ================== */
-const WHATSAPP_NUMBER = "966570291254";
+const WHATSAPP_NUMBER = "963996522233";
 document.getElementById('header-wa-btn').href = `https://wa.me/${WHATSAPP_NUMBER}`;
+document.getElementById('header-ig-btn').href = `https://www.instagram.com/`;
 
 /* ================== بيانات الأدوات ================== */
 const catalogData = {
@@ -859,6 +927,15 @@ function renderChapter(year, sem){
         sTitle.className = 'section-title';
         sTitle.textContent = section.name;
         sectionEl.appendChild(sTitle);
+
+        const columnsHeader = document.createElement('div');
+        columnsHeader.className = 'columns-header';
+        columnsHeader.innerHTML = `
+          <span class="col-name">اسم الأداة</span>
+          <span class="col-price">السعر</span>
+          <span class="col-qty">الكمية</span>
+        `;
+        sectionEl.appendChild(columnsHeader);
       }
 
       section.items.forEach(item => {
@@ -911,7 +988,7 @@ function renderChapter(year, sem){
       <div class="total-label">السعر الإجمالي = <span id="total-${chapterId}">0 ل.س</span></div>
       <div class="order-cta">اضغط هنا للطلب الآن</div>
     `;
-    totalBar.addEventListener('click', () => sendOrder(chapterId, data.title));
+    totalBar.addEventListener('click', () => sendOrder(chapterId, year, sem));
     container.appendChild(totalBar);
 
     container.querySelectorAll('.qty-btn').forEach(btn => {
@@ -947,14 +1024,16 @@ function updateTotal(chapterId){
   if (totalEl) totalEl.textContent = `${total} ل.س`;
 }
 
-function sendOrder(chapterId, chapterTitle){
+const semesterNames = {1:'الفصل الأول', 2:'الفصل الثاني'};
+
+function sendOrder(chapterId, year, sem){
   const selectedItems = Object.values(currentQty).filter(e => e.qty > 0);
   if (selectedItems.length === 0){
     alert('يرجى اختيار كمية أداة واحدة على الأقل قبل الطلب');
     return;
   }
   let total = 0;
-  let message = 'مرحبا ، اود طلب المنتجات الآتية:\n';
+  let message = `مرحبا ، اود طلب المنتجات الآتية من ${yearNames[year]} ${semesterNames[sem]}:\n`;
   selectedItems.forEach(item => {
     message += `${item.name} ،الكمية: ${item.qty}\n`;
     total += item.qty * item.price;
