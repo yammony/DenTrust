@@ -209,22 +209,24 @@
     flex-wrap:wrap;
   }
   .semester-tab{
-    background:#fff;
+    background:#ffffff;
     color:#333;
     font-weight:700;
     font-size:15px;
-    padding:11px 24px;
-    border-radius:12px;
+    padding:12px 18px;
+    border-radius:999px;
     box-shadow:var(--shadow);
     border:2px solid transparent;
     transition:all .25s ease;
+    white-space:nowrap;
   }
   .semester-tab:hover{
     border-color:var(--blue-light);
   }
   .semester-tab.active{
-    background:#000;
+    background:#000000;
     color:#fff;
+    box-shadow:0 6px 16px rgba(0,0,0,0.35);
   }
 
   /* ===== CONTENT AREA ===== */
@@ -247,14 +249,16 @@
   }
 
   /* ===== GALLERY ===== */
+  .gallery-wrap{
+    margin-bottom:22px;
+  }
   .gallery{
     position:relative;
     width:100%;
-    aspect-ratio:16/8;
+    aspect-ratio:1/1.05;
     border-radius:var(--radius);
     overflow:hidden;
     box-shadow:var(--shadow);
-    margin-bottom:22px;
     background:#dbe9f5;
     touch-action:pan-y;
     user-select:none;
@@ -264,7 +268,10 @@
     direction:ltr;
     width:100%;
     height:100%;
-    transition:transform .35s ease;
+    will-change:transform;
+  }
+  .gallery-track.snap{
+    transition:transform .3s ease;
   }
   .gallery-slide{
     min-width:100%;
@@ -280,41 +287,41 @@
     cursor:zoom-in;
     text-align:center;
     padding:10px;
+    overflow:hidden;
   }
   .gallery-slide img{
     width:100%;
     height:100%;
     object-fit:cover;
     pointer-events:none;
+    -webkit-user-drag:none;
   }
-  .gallery-arrow{
+  .gallery-dots{
     position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:52px;
-    height:52px;
-    border-radius:50%;
-    background:#000000;
-    box-shadow:0 4px 14px rgba(0,0,0,0.35);
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
     display:flex;
-    align-items:center;
     justify-content:center;
-    z-index:3;
-    transition:opacity .2s ease, transform .15s ease;
+    align-items:center;
+    gap:7px;
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(0,0,0,0.28);
+    z-index:4;
   }
-  .gallery-arrow:active{ transform:translateY(-50%) scale(0.92); }
-  .gallery-arrow svg{
-    width:24px;
-    height:24px;
-    fill:none;
-    stroke:#ffffff;
-    stroke-width:3;
-    stroke-linecap:round;
-    stroke-linejoin:round;
+  .gallery-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.55);
+    transition:all .2s ease;
   }
-  .gallery-arrow.right{ right:14px; }
-  .gallery-arrow.left{ left:14px; }
-  .gallery-arrow.hidden{ display:none; }
+  .gallery-dot.active{
+    background:#ffffff;
+    width:9px;
+    height:9px;
+  }
 
   /* ===== MODAL ===== */
   .modal-overlay{
@@ -323,6 +330,7 @@
     inset:0;
     background:rgba(0,0,0,0.9);
     z-index:1000;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
   }
@@ -335,20 +343,57 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    touch-action:pan-y;
+    touch-action:none;
     user-select:none;
+    overflow:hidden;
+  }
+  .modal-content .gallery-track{
+    direction:ltr;
   }
   .modal-content .gallery-slide{
     border-radius:12px;
+    cursor:default;
+  }
+  .modal-content .gallery-slide img{
+    pointer-events:auto;
+    transform-origin:center center;
+    object-fit:contain;
+  }
+  .modal-dots{
+    position:absolute;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(0,0,0,0.35);
+    z-index:5;
+  }
+  .modal-dots .gallery-dot{
+    background:rgba(255,255,255,0.4);
+  }
+  .modal-dots .gallery-dot.active{
+    background:#ffffff;
   }
   .modal-close{
-    position:absolute;
-    top:-42px;
-    left:0;
+    position:fixed;
+    top:18px;
+    right:18px;
     color:#fff;
-    font-size:30px;
+    font-size:32px;
     font-weight:900;
     cursor:pointer;
+    z-index:1002;
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
   }
 
   /* ===== SECTIONS / ITEMS ===== */
@@ -518,36 +563,38 @@
   }
 
   /* ===== TOTAL BAR ===== */
-  .total-bar{
-    background:#000;
-    color:#fff;
-    border-radius:var(--radius);
-    padding:18px 20px;
+  .total-wrap{
     text-align:center;
-    margin-top:20px;
-    box-shadow:var(--shadow);
-    transition:transform .2s ease;
+    margin-top:24px;
   }
-  .total-bar:hover{ transform:translateY(-2px); }
-  .total-bar .total-label{
-    font-size:16px;
-    font-weight:700;
-    color:#fff;
-    margin-bottom:12px;
-  }
-  .total-bar .total-label span{
-    font-size:20px;
-    font-weight:900;
-    color:#fff;
-  }
-  .total-bar .order-cta{
-    font-size:15px;
+  .total-price-text{
+    font-size:18px;
     font-weight:800;
-    color:#fff;
-    background:var(--whatsapp);
+    color:#000;
+    margin-bottom:16px;
+  }
+  .total-price-text span{
+    font-size:23px;
+    font-weight:900;
+    color:var(--blue);
+  }
+  .order-button{
     display:inline-block;
-    padding:8px 22px;
+    background:var(--whatsapp);
+    color:#fff;
+    font-weight:800;
+    font-size:19px;
+    padding:18px 48px;
     border-radius:999px;
+    box-shadow:0 8px 20px rgba(37,211,102,0.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .order-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(37,211,102,0.45);
+  }
+  .order-button:active{
+    transform:translateY(0);
   }
 
   /* ===== PLACEHOLDER PRODUCT (years 3-5) ===== */
@@ -645,6 +692,7 @@
 
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-content" id="modal-content"></div>
+  <div class="modal-dots" id="modal-dots"></div>
   <div class="modal-close" id="modal-close">&times;</div>
 </div>
 
@@ -985,14 +1033,14 @@ function renderChapter(year, sem){
       container.appendChild(sectionEl);
     });
 
-    const totalBar = document.createElement('div');
-    totalBar.className = 'total-bar';
-    totalBar.innerHTML = `
-      <div class="total-label">السعر الإجمالي = <span id="total-${chapterId}">0 ل.س</span></div>
-      <div class="order-cta">اضغط هنا للطلب الآن</div>
+    const totalWrap = document.createElement('div');
+    totalWrap.className = 'total-wrap';
+    totalWrap.innerHTML = `
+      <div class="total-price-text">السعر الإجمالي = <span id="total-${chapterId}">0 ل.س</span></div>
+      <button type="button" class="order-button">اضغط هنا للطلب الآن</button>
     `;
-    totalBar.addEventListener('click', () => sendOrder(chapterId, year, sem));
-    container.appendChild(totalBar);
+    totalWrap.querySelector('.order-button').addEventListener('click', () => sendOrder(chapterId, year, sem));
+    container.appendChild(totalWrap);
 
     container.querySelectorAll('.qty-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1047,11 +1095,11 @@ function sendOrder(chapterId, year, sem){
 }
 
 /* ================== المعرض (Gallery) ================== */
-const ARROW_RIGHT_SVG = '<svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8"/></svg>';
-const ARROW_LEFT_SVG = '<svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8"/></svg>';
-
 function buildGallery(images, chapterId){
   const state = { index: 0 };
+  const outer = document.createElement('div');
+  outer.className = 'gallery-wrap';
+
   const wrap = document.createElement('div');
   wrap.className = 'gallery';
 
@@ -1075,163 +1123,293 @@ function buildGallery(images, chapterId){
   });
   wrap.appendChild(track);
 
-  const rightArrow = document.createElement('div');
-  rightArrow.className = 'gallery-arrow right';
-  rightArrow.innerHTML = ARROW_RIGHT_SVG;
-  const leftArrow = document.createElement('div');
-  leftArrow.className = 'gallery-arrow left';
-  leftArrow.innerHTML = ARROW_LEFT_SVG;
+  const dotsWrap = document.createElement('div');
+  dotsWrap.className = 'gallery-dots';
+  const dotEls = images.map((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
 
-  function updateArrows(){
-    rightArrow.classList.toggle('hidden', state.index >= images.length - 1);
-    leftArrow.classList.toggle('hidden', state.index <= 0);
-    track.style.transform = `translateX(${-state.index * 100}%)`;
+  function setTranslate(px, animated){
+    track.classList.toggle('snap', !!animated);
+    track.style.transform = `translateX(${px}px)`;
+  }
+
+  function updateView(animated){
+    const width = wrap.clientWidth;
+    setTranslate(-state.index * width, animated);
+    dotEls.forEach((d, i) => d.classList.toggle('active', i === state.index));
   }
 
   function goNext(){
     if (state.index < images.length - 1){
       state.index += 1;
-      updateArrows();
+      updateView(true);
+    } else {
+      updateView(true);
     }
   }
   function goPrev(){
     if (state.index > 0){
       state.index -= 1;
-      updateArrows();
+      updateView(true);
+    } else {
+      updateView(true);
     }
   }
 
-  rightArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
-    goNext();
-  });
-  leftArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
-    goPrev();
-  });
-
   let startX = 0;
   let startY = 0;
+  let dragStartTranslate = 0;
   let pointerDown = false;
+  let horizontalLock = false;
 
   wrap.addEventListener('pointerdown', (e) => {
     pointerDown = true;
     dragged = false;
+    horizontalLock = false;
     startX = e.clientX;
     startY = e.clientY;
+    dragStartTranslate = -state.index * wrap.clientWidth;
+    track.classList.remove('snap');
   });
   wrap.addEventListener('pointermove', (e) => {
     if (!pointerDown) return;
-    if (Math.abs(e.clientX - startX) > 10) dragged = true;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (!horizontalLock && Math.abs(dx) > 6){
+      horizontalLock = Math.abs(dx) > Math.abs(dy);
+    }
+    if (Math.abs(dx) > 10) dragged = true;
+    if (horizontalLock){
+      track.style.transform = `translateX(${dragStartTranslate + dx}px)`;
+    }
   });
   wrap.addEventListener('pointerup', (e) => {
     if (!pointerDown) return;
     pointerDown = false;
-    const diffX = e.clientX - startX;
-    const diffY = e.clientY - startY;
-    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)){
-      dragged = true;
-      if (diffX < 0){
-        goNext();
-      } else {
-        goPrev();
+    const dx = e.clientX - startX;
+    const width = wrap.clientWidth;
+    if (horizontalLock && Math.abs(dx) > width * 0.15){
+      if (dx < 0 && state.index < images.length - 1){
+        state.index += 1;
+      } else if (dx > 0 && state.index > 0){
+        state.index -= 1;
       }
     }
+    updateView(true);
     setTimeout(() => { dragged = false; }, 50);
   });
-  wrap.addEventListener('pointercancel', () => { pointerDown = false; });
-  wrap.addEventListener('pointerleave', () => { pointerDown = false; });
+  wrap.addEventListener('pointercancel', () => {
+    pointerDown = false;
+    updateView(true);
+  });
+  wrap.addEventListener('pointerleave', () => {
+    if (pointerDown){
+      pointerDown = false;
+      updateView(true);
+    }
+  });
+  window.addEventListener('resize', () => updateView(false));
 
-  wrap.appendChild(rightArrow);
-  wrap.appendChild(leftArrow);
-  updateArrows();
-  return wrap;
+  outer.appendChild(wrap);
+  if (images.length > 1){
+    wrap.appendChild(dotsWrap);
+  }
+  updateView(false);
+  return outer;
 }
 
-/* ================== المودال (تكبير الصورة) ================== */
+/* ================== المودال (تكبير الصورة مع Pinch-to-Zoom) ================== */
 const modalOverlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
 const modalClose = document.getElementById('modal-close');
+const modalDots = document.getElementById('modal-dots');
 
 function openModal(images, startIndex){
   const state = { index: startIndex };
   modalContent.innerHTML = '';
+  modalDots.innerHTML = '';
 
-  const slideEl = document.createElement('div');
-  slideEl.className = 'gallery-slide';
-  slideEl.style.width = '100%';
-  slideEl.style.height = '100%';
-  slideEl.style.cursor = 'default';
+  const track = document.createElement('div');
+  track.className = 'gallery-track';
 
-  function renderSlide(){
-    const img = images[state.index];
+  const slides = images.map(img => {
+    const slide = document.createElement('div');
+    slide.className = 'gallery-slide';
     if (img.src){
-      slideEl.innerHTML = `<img src="${img.src}" alt="${img.label || ''}" style="width:100%;height:100%;object-fit:contain;">`;
+      slide.innerHTML = `<img src="${img.src}" alt="${img.label || ''}">`;
     } else {
-      slideEl.textContent = img.label || 'صورة المنتج';
+      slide.textContent = img.label || 'صورة المنتج';
     }
-    rightArrow.classList.toggle('hidden', state.index >= images.length - 1);
-    leftArrow.classList.toggle('hidden', state.index <= 0);
+    track.appendChild(slide);
+    return slide;
+  });
+
+  const dotEls = images.map((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'gallery-dot' + (i === startIndex ? ' active' : '');
+    modalDots.appendChild(dot);
+    return dot;
+  });
+  modalDots.style.display = images.length > 1 ? 'flex' : 'none';
+
+  modalContent.appendChild(track);
+
+  let scale = 1;
+  let panX = 0;
+  let panY = 0;
+
+  function activeImg(){
+    return slides[state.index].querySelector('img');
+  }
+
+  function applyZoomTransform(){
+    const img = activeImg();
+    if (img){
+      img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    }
+  }
+
+  function resetZoom(){
+    scale = 1;
+    panX = 0;
+    panY = 0;
+    applyZoomTransform();
+  }
+
+  function setTranslate(px, animated){
+    track.classList.toggle('snap', !!animated);
+    track.style.transform = `translateX(${px}px)`;
+  }
+
+  function updateView(animated){
+    const width = modalContent.clientWidth;
+    setTranslate(-state.index * width, animated);
+    dotEls.forEach((d, i) => d.classList.toggle('active', i === state.index));
+    resetZoom();
   }
 
   function goNext(){
     if (state.index < images.length - 1){
       state.index += 1;
-      renderSlide();
     }
+    updateView(true);
   }
   function goPrev(){
     if (state.index > 0){
       state.index -= 1;
-      renderSlide();
+    }
+    updateView(true);
+  }
+
+  updateView(false);
+
+  const pointers = new Map();
+  let startX = 0;
+  let startY = 0;
+  let dragStartTranslate = 0;
+  let pointerDown = false;
+  let pinching = false;
+  let horizontalLock = false;
+  let initialDistance = 0;
+  let initialScale = 1;
+  let lastPanX = 0;
+  let lastPanY = 0;
+
+  function distanceBetween(p1, p2){
+    return Math.hypot(p1.x - p2.x, p1.y - p2.y);
+  }
+
+  modalContent.addEventListener('pointerdown', (e) => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1 && scale === 1){
+      pointerDown = true;
+      pinching = false;
+      horizontalLock = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      dragStartTranslate = -state.index * modalContent.clientWidth;
+      track.classList.remove('snap');
+    } else if (pointers.size === 1 && scale > 1){
+      pointerDown = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      lastPanX = panX;
+      lastPanY = panY;
+    } else if (pointers.size === 2){
+      pointerDown = false;
+      pinching = true;
+      const pts = Array.from(pointers.values());
+      initialDistance = distanceBetween(pts[0], pts[1]);
+      initialScale = scale;
+    }
+  });
+
+  modalContent.addEventListener('pointermove', (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pinching && pointers.size === 2){
+      const pts = Array.from(pointers.values());
+      const dist = distanceBetween(pts[0], pts[1]);
+      if (initialDistance > 0){
+        scale = Math.min(4, Math.max(1, initialScale * (dist / initialDistance)));
+        applyZoomTransform();
+      }
+    } else if (pointerDown && pointers.size === 1 && scale === 1){
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (!horizontalLock && Math.abs(dx) > 6){
+        horizontalLock = Math.abs(dx) > Math.abs(dy);
+      }
+      if (horizontalLock){
+        track.style.transform = `translateX(${dragStartTranslate + dx}px)`;
+      }
+    } else if (!pinching && pointers.size === 1 && scale > 1){
+      panX = lastPanX + (e.clientX - startX);
+      panY = lastPanY + (e.clientY - startY);
+      applyZoomTransform();
+    }
+  });
+
+  function endPointer(e){
+    pointers.delete(e.pointerId);
+    if (pointers.size === 0){
+      if (pointerDown && scale === 1){
+        const dx = e.clientX - startX;
+        const width = modalContent.clientWidth;
+        if (horizontalLock && Math.abs(dx) > width * 0.15){
+          if (dx < 0 && state.index < images.length - 1){
+            state.index += 1;
+          } else if (dx > 0 && state.index > 0){
+            state.index -= 1;
+          }
+        }
+        updateView(true);
+      }
+      pointerDown = false;
+      pinching = false;
+      if (scale < 1){
+        resetZoom();
+      }
+    } else if (pointers.size === 1){
+      pinching = false;
+      const remaining = Array.from(pointers.values())[0];
+      startX = remaining.x;
+      startY = remaining.y;
+      lastPanX = panX;
+      lastPanY = panY;
     }
   }
 
-  const rightArrow = document.createElement('div');
-  rightArrow.className = 'gallery-arrow right';
-  rightArrow.innerHTML = ARROW_RIGHT_SVG;
-  rightArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
-    goNext();
-  });
-
-  const leftArrow = document.createElement('div');
-  leftArrow.className = 'gallery-arrow left';
-  leftArrow.innerHTML = ARROW_LEFT_SVG;
-  leftArrow.addEventListener('click', (e) => {
-    e.stopPropagation();
-    goPrev();
-  });
-
-  modalContent.appendChild(slideEl);
-  modalContent.appendChild(rightArrow);
-  modalContent.appendChild(leftArrow);
-  renderSlide();
-
-  let startX = 0;
-  let startY = 0;
-  let pointerDown = false;
-
-  modalContent.addEventListener('pointerdown', (e) => {
-    pointerDown = true;
-    startX = e.clientX;
-    startY = e.clientY;
-  });
-  modalContent.addEventListener('pointerup', (e) => {
-    if (!pointerDown) return;
-    pointerDown = false;
-    const diffX = e.clientX - startX;
-    const diffY = e.clientY - startY;
-    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)){
-      if (diffX < 0){
-        goNext();
-      } else {
-        goPrev();
-      }
-    }
-  });
-  modalContent.addEventListener('pointercancel', () => { pointerDown = false; });
-  modalContent.addEventListener('pointerleave', () => { pointerDown = false; });
+  modalContent.addEventListener('pointerup', endPointer);
+  modalContent.addEventListener('pointercancel', endPointer);
+  modalContent.addEventListener('pointerleave', endPointer);
+  modalContent.addEventListener('dblclick', () => { resetZoom(); });
+  window.addEventListener('resize', () => updateView(false));
 
   modalOverlay.classList.add('open');
 }
