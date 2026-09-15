@@ -699,9 +699,10 @@
 
 <script>
 /* ================== إعدادات عامة ================== */
-const WHATSAPP_NUMBER = "963996522233";
+const WHATSAPP_NUMBER = "963984214305";
+const INSTAGRAM_URL = "https://www.instagram.com/dentrust_sy?stkn=M3YwMnpidTdwbzRn&utm_source=qr";
 document.getElementById('header-wa-btn').href = `https://wa.me/${WHATSAPP_NUMBER}`;
-document.getElementById('header-ig-btn').href = `https://www.instagram.com/`;
+document.getElementById('header-ig-btn').href = INSTAGRAM_URL;
 
 /* ================== بيانات الأدوات ================== */
 const catalogData = {
@@ -714,8 +715,8 @@ const catalogData = {
       type: 'products',
       title: 'أدوات الفصل الثاني',
       images: [
-        { src: 'images/test-photo-1.jpg', label: 'صورة تجريبية 1' },
-        { src: 'images/test-photo-2.jpg', label: 'صورة تجريبية 2' }
+        { label: 'صورة أدوات تشريح ورسم ونحت 1' },
+        { label: 'صورة أدوات تشريح ورسم ونحت 2' }
       ],
       sections: [
         {
@@ -739,7 +740,7 @@ const catalogData = {
       type: 'products',
       title: 'أدوات الفصل الأول',
       images: [
-        { src: 'images/test-photo-2.jpg', label: 'صورة تجريبية - مكروتور Being' },
+        { label: 'صورة أدوات السنة الثانية - الفصل الأول 1' },
         { label: 'صورة أدوات السنة الثانية - الفصل الأول 2' }
       ],
       sections: [
@@ -816,8 +817,8 @@ const catalogData = {
             { name: '1- قمعية', sub: true },
             { name: '2- شاقة', sub: true },
             { name: '3- كروية', sub: true },
-            { name: 'كبسولات املغم عيار 1', note: '(وسطيا يكفي 7)', notePosition: 'below' },
-            { name: 'كبسولات املغم عيار 2', note: '(وسطيا يكفي 7)', notePosition: 'below' },
+            { name: 'كبسولات املغم عيار 1', note: '(وسطيا ستكفيك 7 كبسولات للفصل كاملا)', notePosition: 'below' },
+            { name: 'كبسولات املغم عيار 2', note: '(وسطيا ستكفيك 7 كبسولات للفصل كاملا)', notePosition: 'below' },
             { name: 'كبسولات املغم عيار 3', note: '(لن تحتاجها غالبا)', notePosition: 'below' },
             { name: 'جرن أملغم' },
             { name: 'مدفع املغم' },
@@ -857,14 +858,84 @@ const catalogData = {
             { name: 'لوحين مزج', noPrice: true, note: 'تم ذكره في مادة الجزئية 1' },
             { name: 'سباتيول', noPrice: true, note: 'تم ذكره في مادة الجزئية 1' },
             { name: 'أداة تبطين' },
-            { name: 'سن اكريل محضر اي صنف', noPrice: true, note: 'يتم عمله في جلسة مادة المداواة1' }
+            { name: 'سن اكريل محضر اي صنف', noPrice: true, note: 'يتم انجازه في جلسة العملي لمادة المداواة ١' }
           ]
         }
       ]
     }
   },
   3: {
-    1: { type: 'placeholder' },
+    1: {
+      type: 'products',
+      title: 'أدوات الفصل الأول',
+      images: [
+        { label: 'صورة أدوات السنة الثالثة - الفصل الأول 1' },
+        { label: 'صورة أدوات السنة الثالثة - الفصل الأول 2' }
+      ],
+      sections: [
+        {
+          name: 'مداواة الأسنان الترميمية ٢:',
+          items: [
+            { name: 'صينية' },
+            { name: 'شانات' },
+            { name: 'نايلونة' },
+            { name: 'كحول' },
+            { name: 'قبضة مكروتور بينغ' },
+            { name: 'أدوات فحص' },
+            { name: 'فرازاكو إكريل', note: '(اي نوع ولكن الأفضل اكريل)', notePosition: 'below' },
+            { name: 'كومبوزيت تقليدي' },
+            { name: 'كومبوزيت سيال' },
+            { name: 'مخرش' },
+            { name: 'بوند' },
+            { name: 'فراشي بوند' },
+            { name: 'تفلون' },
+            { name: 'فازلين' },
+            { name: 'جهاز تصليب سيكادا' },
+            { subheader: 'سنابل وتشمل:' },
+            { name: '١- قمعية', sub: true },
+            { name: '٢- شاقة', sub: true },
+            { name: '٣- كروية', sub: true },
+            { subheader: 'سنابل إنهاء صفراء وتشمل:' },
+            { name: '١- لهب شمعة', sub: true },
+            { name: '٢- مخروطية', sub: true },
+            { name: '٣- مطاط', sub: true },
+            { name: 'أسنان اكريل' },
+            { name: 'أداة حشي مواد لينة' },
+            { name: 'حاجز مطاطي' },
+            { name: 'فرشاة أسنان' }
+          ]
+        },
+        {
+          name: 'الجراحة الصغرى:',
+          items: [
+            { name: 'إسفنجة' },
+            { name: 'حامل إبر' },
+            { name: 'إبرة' }
+          ]
+        },
+        {
+          name: 'التعويضات الكاملة ١:',
+          items: [
+            { name: 'صينية', noPrice: true, note: 'تم ذكره في مادة المداواة 2' },
+            { name: 'شانات', noPrice: true, note: 'تم ذكره في مادة المداواة 2' },
+            { name: 'نايلونة', noPrice: true, note: 'تم ذكره في مادة المداواة 2' },
+            { name: 'كحول', noPrice: true, note: 'تم ذكره في مادة المداواة 2' },
+            { name: 'سباتيول' },
+            { name: 'لوحين مزج' },
+            { name: 'مطبق معدني اللواج' },
+            { name: 'أسنان تنضيد السيف' },
+            { name: 'مثال درد' },
+            { name: 'اقلام كير' },
+            { name: 'قنديل' },
+            { name: 'تورش' },
+            { name: 'ألواح شمع حمراء' },
+            { name: 'جبس ابيض' },
+            { name: 'إكريل سائل وبودرة' },
+            { name: 'فنجان' }
+          ]
+        }
+      ]
+    },
     2: { type: 'placeholder' }
   },
   4: {
