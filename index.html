@@ -1143,16 +1143,20 @@ let currentQty = {}; // key -> qty
 /* ================== القائمة الرئيسية ================== */
 const mainMenuItems = [
   { id: 'products', label: 'منتجاتنا' },
-  { id: 'tools', label: 'الأدوات المطلوبة للمواد' },
-  { id: 'gpa', label: 'حساب المعدل الفصلي والتراكمي' },
-  { id: 'cards', label: 'تصميم وطباعة كروت شخصية' }
+  { id: 'tools', line1: 'الأدوات المطلوبة', line2: 'لجميع المواد' },
+  { id: 'gpa', line1: 'حساب المعدل', line2: 'الفصلي والتراكمي' },
+  { id: 'cards', line1: 'تصميم وطباعة', line2: 'كروت شخصية' }
 ];
 
 const mainMenuEl = document.getElementById('main-menu');
 mainMenuItems.forEach(item => {
   const btn = document.createElement('button');
   btn.className = 'menu-btn';
-  btn.textContent = item.label;
+  if (item.line1 && item.line2){
+    btn.innerHTML = `${item.line1}<br>${item.line2}`;
+  } else {
+    btn.textContent = item.label;
+  }
   btn.dataset.menu = item.id;
   btn.addEventListener('click', () => selectMenu(item.id));
   mainMenuEl.appendChild(btn);
@@ -1229,10 +1233,6 @@ function renderGpaMenu(container){
   subtabs.appendChild(cumBtn);
   container.appendChild(subtabs);
   container.appendChild(gpaContent);
-
-  // افتراضيا اعرض المعدل الفصلي
-  termBtn.classList.add('active');
-  renderTermGpa(gpaContent);
 }
 
 let gpaSubjectCount = 0;
