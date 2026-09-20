@@ -185,9 +185,9 @@
     background:#ffffff;
     color:#333;
     font-weight:700;
-    font-size:11.5px;
-    line-height:1.35;
-    padding:10px 4px;
+    font-size:10.5px;
+    line-height:1.4;
+    padding:14px 4px;
     border-radius:18px;
     box-shadow:var(--shadow);
     border:2px solid transparent;
@@ -201,12 +201,13 @@
     word-break:keep-all;
     overflow-wrap:break-word;
     overflow:visible;
-    min-height:58px;
+    min-height:70px;
     width:100%;
   }
   .menu-btn span{
     display:block;
     width:100%;
+    white-space:nowrap;
   }
   .menu-btn:hover{
     border-color:var(--blue-light);
@@ -217,10 +218,10 @@
     box-shadow:0 6px 16px rgba(0,0,0,0.35);
   }
   @media (min-width:720px){
-    .menu-btn{ font-size:14px; padding:12px 10px; min-height:62px; }
+    .menu-btn{ font-size:14px; padding:16px 10px; min-height:74px; }
   }
   @media (max-width:340px){
-    .menu-btn{ font-size:10.5px; }
+    .menu-btn{ font-size:9.5px; }
   }
 
   .years-tabs{
@@ -1181,6 +1182,44 @@ mainMenuItems.forEach(item => {
   btn.dataset.menu = item.id;
   btn.addEventListener('click', () => selectMenu(item.id));
   mainMenuEl.appendChild(btn);
+});
+
+/* ضبط تلقائي لحجم الخط بحيث يبقى كل زر سطرين بالضبط مهما كان عرض الشاشة */
+function fitMenuButtons(){
+  document.querySelectorAll('.menu-btn').forEach(btn => {
+    const spans = btn.querySelectorAll('span');
+    if (spans.length === 0) return;
+
+    // نعيد ضبط الخط للحجم الأساسي المعرف في CSS لهذا العرض قبل القياس
+    btn.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(btn).fontSize) || 11;
+    btn.style.fontSize = size + 'px';
+
+    let guard = 0;
+    while (guard < 60){
+      let fits = true;
+      spans.forEach(sp => {
+        if (sp.scrollWidth > sp.clientWidth + 0.5){
+          fits = false;
+        }
+      });
+      if (fits || size <= 6.5) break;
+      size -= 0.25;
+      btn.style.fontSize = size + 'px';
+      guard++;
+    }
+  });
+}
+
+window.addEventListener('load', fitMenuButtons);
+fitMenuButtons();
+if (document.fonts && document.fonts.ready){
+  document.fonts.ready.then(fitMenuButtons);
+}
+let menuFitResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(menuFitResizeTimer);
+  menuFitResizeTimer = setTimeout(fitMenuButtons, 150);
 });
 
 function selectMenu(id){
