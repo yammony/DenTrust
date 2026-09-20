@@ -759,13 +759,24 @@
     flex:1 1 auto;
     text-align:right;
   }
-  .gpa-col-hours, .gpa-col-percent{
+  .gpa-col-hours{
+    flex:0 0 auto;
+    width:112px;
+    text-align:center;
+  }
+  .gpa-col-percent{
     flex:0 0 auto;
     width:92px;
     text-align:center;
   }
-  .gpa-col-percent{
+  .gpa-col-cpercent{
     margin-right:26px;
+  }
+  .gpa-header-row .kashida-pair{
+    align-self:flex-start;
+  }
+  .gpa-header-row .kashida-pair .menu-plain-line{
+    font-size:11.5px;
   }
   .gpa-cvalue{
     margin-right:26px;
@@ -787,6 +798,9 @@
     font-size:14px;
     background:#f8fafc;
     color:#111;
+  }
+  .gpa-hours{
+    width:112px;
   }
   .gpa-input:focus{
     outline:none;
@@ -1498,7 +1512,7 @@ function renderCumulativeTable(container){
         <span class="menu-plain-line">الساعات المنجزة</span>
         <span class="menu-plain-line">فصليا</span>
       </span>
-      <span class="gpa-col-percent kashida-pair">
+      <span class="gpa-col-percent gpa-col-cpercent kashida-pair">
         <span class="menu-plain-line">المعدل الفصلي</span>
         <span class="menu-plain-line">النقطي</span>
       </span>
