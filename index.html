@@ -34,7 +34,14 @@
     padding-bottom:60px;
   }
   a{text-decoration:none; color:inherit;}
-  button{font-family:'Tajawal', sans-serif; cursor:pointer; border:none;}
+  button{
+    font-family:'Tajawal', sans-serif;
+    cursor:pointer;
+    border:none;
+    -webkit-appearance:none;
+    appearance:none;
+    white-space:normal;
+  }
 
   /* ===== HEADER ===== */
   .site-header{
@@ -179,17 +186,26 @@
     color:#333;
     font-weight:700;
     font-size:11.5px;
-    line-height:1.4;
-    padding:10px 6px;
-    border-radius:999px;
+    line-height:1.35;
+    padding:10px 4px;
+    border-radius:18px;
     box-shadow:var(--shadow);
     border:2px solid transparent;
     transition:all .25s ease;
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
+    white-space:normal;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+    overflow:visible;
     min-height:58px;
+    width:100%;
+  }
+  .menu-btn span{
+    display:block;
     width:100%;
   }
   .menu-btn:hover{
@@ -1153,7 +1169,12 @@ mainMenuItems.forEach(item => {
   const btn = document.createElement('button');
   btn.className = 'menu-btn';
   if (item.line1 && item.line2){
-    btn.innerHTML = `${item.line1}<br>${item.line2}`;
+    const l1 = document.createElement('span');
+    l1.textContent = item.line1;
+    const l2 = document.createElement('span');
+    l2.textContent = item.line2;
+    btn.appendChild(l1);
+    btn.appendChild(l2);
   } else {
     btn.textContent = item.label;
   }
