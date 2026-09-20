@@ -158,6 +158,54 @@
     color:var(--blue);
     margin-bottom:22px;
   }
+  .main-subtitle{
+    font-size:clamp(13px, 3.4vw, 16px);
+    font-weight:700;
+    color:#666;
+    margin-bottom:20px;
+  }
+
+  /* ===== MAIN MENU ===== */
+  .main-menu{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:7px;
+    max-width:760px;
+    margin:0 auto 6px;
+    padding:4px 4px 6px;
+  }
+  .menu-btn{
+    background:#ffffff;
+    color:#333;
+    font-weight:700;
+    font-size:11.5px;
+    line-height:1.4;
+    padding:10px 6px;
+    border-radius:999px;
+    box-shadow:var(--shadow);
+    border:2px solid transparent;
+    transition:all .25s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    min-height:58px;
+    width:100%;
+  }
+  .menu-btn:hover{
+    border-color:var(--blue-light);
+  }
+  .menu-btn.active{
+    background:#000000;
+    color:#fff;
+    box-shadow:0 6px 16px rgba(0,0,0,0.35);
+  }
+  @media (min-width:720px){
+    .menu-btn{ font-size:14px; padding:12px 10px; min-height:62px; }
+  }
+  @media (max-width:340px){
+    .menu-btn{ font-size:10.5px; }
+  }
 
   .years-tabs{
     display:flex;
@@ -648,6 +696,141 @@
     padding:20px;
   }
 
+  /* ===== GPA CALCULATOR ===== */
+  .gpa-subtabs{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin:0 0 20px;
+    flex-wrap:wrap;
+  }
+  .gpa-table{
+    background:#fff;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:16px;
+    margin-bottom:16px;
+  }
+  .gpa-header-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    font-weight:800;
+    color:var(--blue);
+    font-size:12.5px;
+    padding-bottom:10px;
+    border-bottom:2px solid #eef4fa;
+    margin-bottom:8px;
+  }
+  .gpa-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:10px 0;
+    border-bottom:1px solid #f0f0f0;
+  }
+  .gpa-row:last-child{ border-bottom:none; }
+  .gpa-col-name{
+    flex:1 1 auto;
+    text-align:right;
+  }
+  .gpa-col-hours, .gpa-col-percent{
+    flex:0 0 auto;
+    width:84px;
+    text-align:center;
+  }
+  .gpa-subject-name{
+    flex:1 1 auto;
+    font-weight:700;
+    font-size:14px;
+    color:#222;
+  }
+  .gpa-input{
+    width:84px;
+    flex:0 0 auto;
+    text-align:center;
+    padding:9px 4px;
+    border:1.5px solid #dfe6ee;
+    border-radius:10px;
+    font-family:'Tajawal', sans-serif;
+    font-size:14px;
+    background:#f8fafc;
+    color:#111;
+  }
+  .gpa-input:focus{
+    outline:none;
+    border-color:var(--blue-light);
+    background:#fff;
+  }
+  .gpa-input::-webkit-outer-spin-button,
+  .gpa-input::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+  }
+  .gpa-input[type="number"]{
+    -moz-appearance:textfield;
+    appearance:textfield;
+  }
+  .gpa-percent-wrap{
+    position:relative;
+    width:84px;
+    flex:0 0 auto;
+  }
+  .gpa-percent-wrap .gpa-input{
+    width:100%;
+    padding-left:22px;
+  }
+  .gpa-percent-sign{
+    position:absolute;
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:13px;
+    font-weight:700;
+    color:#888;
+    pointer-events:none;
+  }
+  .gpa-add-btn{
+    display:block;
+    background:var(--green-active);
+    color:#fff;
+    font-weight:800;
+    font-size:15px;
+    padding:12px 30px;
+    border-radius:999px;
+    margin:4px auto 14px;
+    box-shadow:0 8px 20px rgba(22,163,74,0.3);
+    transition:transform .2s ease;
+  }
+  .gpa-add-btn:hover{ transform:translateY(-2px); }
+  .gpa-calc-btn{
+    display:block;
+    background:#000000;
+    color:#fff;
+    font-weight:800;
+    font-size:16px;
+    padding:14px 34px;
+    border-radius:999px;
+    margin:0 auto;
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+    transition:transform .2s ease;
+  }
+  .gpa-calc-btn:hover{ transform:translateY(-2px); }
+  .gpa-result{
+    text-align:center;
+    font-weight:800;
+    font-size:17px;
+    color:#000;
+    margin-top:18px;
+  }
+  .gpa-year-title{
+    font-size:15px;
+    font-weight:800;
+    color:var(--blue);
+  }
+
   @media (max-width:480px){
     .header-top-row{ justify-content:space-between; margin-top:10px; }
     .whatsapp-btn span{ font-size:11px; }
@@ -680,6 +863,10 @@
 
 <section class="hero">
   <div class="university">الجامعة الوطنية الخاصة</div>
+  <div class="main-menu" id="main-menu"></div>
+</section>
+
+<section class="hero" id="years-section" style="display:none; padding-top:10px;">
   <div class="main-title">اختر السنة</div>
   <div class="years-tabs" id="years-tabs"></div>
 </section>
@@ -952,6 +1139,288 @@ const DEFAULT_PRICE = 500;
 let selectedYear = null;
 let selectedSemester = null;
 let currentQty = {}; // key -> qty
+
+/* ================== القائمة الرئيسية ================== */
+const mainMenuItems = [
+  { id: 'products', label: 'منتجاتنا' },
+  { id: 'tools', label: 'الأدوات المطلوبة للمواد' },
+  { id: 'gpa', label: 'حساب المعدل الفصلي والتراكمي' },
+  { id: 'cards', label: 'تصميم وطباعة كروت شخصية' }
+];
+
+const mainMenuEl = document.getElementById('main-menu');
+mainMenuItems.forEach(item => {
+  const btn = document.createElement('button');
+  btn.className = 'menu-btn';
+  btn.textContent = item.label;
+  btn.dataset.menu = item.id;
+  btn.addEventListener('click', () => selectMenu(item.id));
+  mainMenuEl.appendChild(btn);
+});
+
+function selectMenu(id){
+  document.querySelectorAll('.menu-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.menu === id);
+  });
+
+  const yearsSection = document.getElementById('years-section');
+  const semWrap = document.getElementById('semesters-wrap');
+  const container = document.getElementById('content-area');
+
+  // تصفير الاختيارات السابقة
+  selectedYear = null;
+  selectedSemester = null;
+  document.querySelectorAll('.year-tab').forEach(b => b.classList.remove('active'));
+  semWrap.style.display = 'none';
+  container.innerHTML = '';
+
+  if (id === 'tools'){
+    yearsSection.style.display = 'block';
+    yearsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  yearsSection.style.display = 'none';
+
+  if (id === 'gpa'){
+    renderGpaMenu(container);
+    return;
+  }
+
+  const messages = {
+    products: 'سيتم عرض منتجاتنا هنا قريباً',
+    cards: 'خدمة تصميم وطباعة الكروت الشخصية قريباً'
+  };
+  const box = document.createElement('div');
+  box.className = 'message-box';
+  box.textContent = messages[id] || '';
+  container.appendChild(box);
+}
+
+/* ================== حساب المعدل ================== */
+function renderGpaMenu(container){
+  container.innerHTML = '';
+  const subtabs = document.createElement('div');
+  subtabs.className = 'gpa-subtabs';
+
+  const termBtn = document.createElement('button');
+  termBtn.className = 'semester-tab';
+  termBtn.textContent = 'حساب المعدل الفصلي';
+
+  const cumBtn = document.createElement('button');
+  cumBtn.className = 'semester-tab';
+  cumBtn.textContent = 'حساب المعدل التراكمي';
+
+  const gpaContent = document.createElement('div');
+  gpaContent.id = 'gpa-content';
+
+  termBtn.addEventListener('click', () => {
+    termBtn.classList.add('active');
+    cumBtn.classList.remove('active');
+    renderTermGpa(gpaContent);
+  });
+  cumBtn.addEventListener('click', () => {
+    cumBtn.classList.add('active');
+    termBtn.classList.remove('active');
+    renderCumulativeGpaMenu(gpaContent);
+  });
+
+  subtabs.appendChild(termBtn);
+  subtabs.appendChild(cumBtn);
+  container.appendChild(subtabs);
+  container.appendChild(gpaContent);
+
+  // افتراضيا اعرض المعدل الفصلي
+  termBtn.classList.add('active');
+  renderTermGpa(gpaContent);
+}
+
+let gpaSubjectCount = 0;
+
+function percentToPoint(percent){
+  if (percent >= 98) return 4;
+  if (percent >= 95) return 3.75;
+  if (percent >= 90) return 3.5;
+  if (percent >= 85) return 3.25;
+  if (percent >= 80) return 3;
+  if (percent >= 75) return 2.75;
+  if (percent >= 70) return 2.5;
+  if (percent >= 65) return 2.25;
+  if (percent >= 60) return 2;
+  if (percent >= 55) return 1.75;
+  if (percent >= 50) return 1.5;
+  return 0;
+}
+
+function renderTermGpa(container){
+  container.innerHTML = '';
+  gpaSubjectCount = 0;
+
+  const table = document.createElement('div');
+  table.className = 'gpa-table';
+  table.id = 'gpa-table';
+
+  const header = document.createElement('div');
+  header.className = 'gpa-header-row';
+  header.innerHTML = `
+    <span class="gpa-col-name"></span>
+    <span class="gpa-col-hours">عدد الساعات</span>
+    <span class="gpa-col-percent">الدرجة</span>
+  `;
+  table.appendChild(header);
+  container.appendChild(table);
+
+  for (let i = 0; i < 2; i++){
+    addGpaSubjectRow(table);
+  }
+
+  const addBtn = document.createElement('button');
+  addBtn.type = 'button';
+  addBtn.className = 'gpa-add-btn';
+  addBtn.textContent = 'إضافة مادة';
+  addBtn.addEventListener('click', () => addGpaSubjectRow(table));
+  container.appendChild(addBtn);
+
+  const calcBtn = document.createElement('button');
+  calcBtn.type = 'button';
+  calcBtn.className = 'gpa-calc-btn';
+  calcBtn.textContent = 'حساب المعدل';
+
+  const resultEl = document.createElement('div');
+  resultEl.className = 'gpa-result';
+  resultEl.id = 'gpa-result';
+
+  calcBtn.addEventListener('click', () => {
+    const rows = table.querySelectorAll('.gpa-row');
+    let weightedSum = 0;
+    let totalHours = 0;
+    let hasValidRow = false;
+
+    rows.forEach(row => {
+      const hoursInput = row.querySelector('.gpa-hours');
+      const percentInput = row.querySelector('.gpa-percent');
+      const hours = parseFloat(hoursInput.value);
+      const percent = parseFloat(percentInput.value);
+      if (!isNaN(hours) && !isNaN(percent)){
+        const point = percentToPoint(percent);
+        weightedSum += hours * point;
+        totalHours += hours;
+        hasValidRow = true;
+      }
+    });
+
+    if (!hasValidRow || totalHours === 0){
+      resultEl.textContent = 'يرجى إدخال عدد الساعات والمعدل لكل مادة أولاً';
+      return;
+    }
+
+    const average = weightedSum / totalHours;
+    const formatted = Number.isInteger(average) ? average : average.toFixed(2);
+    resultEl.textContent = `معدلك الفصلي هو = ${formatted}`;
+  });
+
+  container.appendChild(calcBtn);
+  container.appendChild(resultEl);
+}
+
+function addGpaSubjectRow(table){
+  gpaSubjectCount += 1;
+  const row = document.createElement('div');
+  row.className = 'gpa-row';
+  row.innerHTML = `
+    <span class="gpa-subject-name">المادة ${gpaSubjectCount}</span>
+    <input type="text" inputmode="decimal" class="gpa-input gpa-hours" placeholder="">
+    <span class="gpa-percent-wrap">
+      <input type="text" inputmode="decimal" class="gpa-input gpa-percent" placeholder="">
+      <span class="gpa-percent-sign">%</span>
+    </span>
+  `;
+  table.appendChild(row);
+}
+
+/* ================== حساب المعدل التراكمي ================== */
+function renderCumulativeGpaMenu(container){
+  container.innerHTML = '';
+
+  const heading = document.createElement('div');
+  heading.className = 'chapter-title';
+  heading.textContent = 'املأ الفصول المنجزة فقط';
+  container.appendChild(heading);
+
+  renderCumulativeTable(container);
+}
+
+function renderCumulativeTable(container){
+  const allTables = [];
+
+  for (let y = 1; y <= 5; y++){
+    const yearBlock = document.createElement('div');
+    yearBlock.className = 'gpa-table';
+
+    const header = document.createElement('div');
+    header.className = 'gpa-header-row';
+    header.innerHTML = `
+      <span class="gpa-col-name gpa-year-title">${yearNames[y]}</span>
+      <span class="gpa-col-hours">الساعات المنجزة فصليا</span>
+      <span class="gpa-col-percent">المعدل الفصلي النقطي</span>
+    `;
+    yearBlock.appendChild(header);
+
+    const semItems = [semesterNames[1], semesterNames[2], 'الفصل الصيفي (إن وجد)'];
+
+    semItems.forEach(label => {
+      const row = document.createElement('div');
+      row.className = 'gpa-row';
+      row.innerHTML = `
+        <span class="gpa-subject-name">${label}</span>
+        <input type="text" inputmode="decimal" class="gpa-input gpa-hours" placeholder="">
+        <input type="text" inputmode="decimal" class="gpa-input gpa-cvalue" placeholder="">
+      `;
+      yearBlock.appendChild(row);
+    });
+
+    container.appendChild(yearBlock);
+    allTables.push(yearBlock);
+  }
+
+  const calcBtn = document.createElement('button');
+  calcBtn.type = 'button';
+  calcBtn.className = 'gpa-calc-btn';
+  calcBtn.textContent = 'حساب المعدل';
+
+  const resultEl = document.createElement('div');
+  resultEl.className = 'gpa-result';
+
+  calcBtn.addEventListener('click', () => {
+    let weightedSum = 0;
+    let totalHours = 0;
+    let hasValidRow = false;
+
+    allTables.forEach(block => {
+      block.querySelectorAll('.gpa-row').forEach(row => {
+        const hours = parseFloat(row.querySelector('.gpa-hours').value);
+        const val = parseFloat(row.querySelector('.gpa-cvalue').value);
+        if (!isNaN(hours) && !isNaN(val)){
+          weightedSum += hours * val;
+          totalHours += hours;
+          hasValidRow = true;
+        }
+      });
+    });
+
+    if (!hasValidRow || totalHours === 0){
+      resultEl.textContent = 'يرجى إدخال عدد الساعات والمعدل النقطي لكل فصل أولاً';
+      return;
+    }
+
+    const average = weightedSum / totalHours;
+    const formatted = Number.isInteger(average) ? average : average.toFixed(2);
+    resultEl.textContent = `معدلك التراكمي هو = ${formatted}`;
+  });
+
+  container.appendChild(calcBtn);
+  container.appendChild(resultEl);
+}
 
 /* ================== بناء تبويبات السنوات ================== */
 const yearNames = {1:'السنة الأولى',2:'السنة الثانية',3:'السنة الثالثة',4:'السنة الرابعة',5:'السنة الخامسة'};
