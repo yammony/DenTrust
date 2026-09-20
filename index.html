@@ -175,20 +175,20 @@
   /* ===== MAIN MENU ===== */
   .main-menu{
     display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:7px;
-    max-width:760px;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px;
+    max-width:420px;
     margin:0 auto 6px;
-    padding:4px 4px 6px;
+    padding:4px 8px 6px;
   }
   .menu-btn{
     background:#ffffff;
     color:#333;
     font-weight:700;
-    font-size:10.5px;
+    font-size:14px;
     line-height:1.4;
-    padding:14px 4px;
-    border-radius:18px;
+    padding:15px 8px;
+    border-radius:999px;
     box-shadow:var(--shadow);
     border:2px solid transparent;
     transition:all .25s ease;
@@ -201,7 +201,7 @@
     word-break:keep-all;
     overflow-wrap:break-word;
     overflow:visible;
-    min-height:70px;
+    min-height:78px;
     width:100%;
   }
   .menu-btn span{
@@ -218,10 +218,10 @@
     box-shadow:0 6px 16px rgba(0,0,0,0.35);
   }
   @media (min-width:720px){
-    .menu-btn{ font-size:14px; padding:16px 10px; min-height:74px; }
+    .menu-btn{ font-size:16px; padding:17px 10px; min-height:82px; }
   }
   @media (max-width:340px){
-    .menu-btn{ font-size:9.5px; }
+    .menu-btn{ font-size:12.5px; }
   }
 
   .years-tabs{
@@ -1171,8 +1171,10 @@ mainMenuItems.forEach(item => {
   btn.className = 'menu-btn';
   if (item.line1 && item.line2){
     const l1 = document.createElement('span');
+    l1.className = 'menu-plain-line';
     l1.textContent = item.line1;
     const l2 = document.createElement('span');
+    l2.className = 'menu-plain-line';
     l2.textContent = item.line2;
     btn.appendChild(l1);
     btn.appendChild(l2);
@@ -1184,42 +1186,91 @@ mainMenuItems.forEach(item => {
   mainMenuEl.appendChild(btn);
 });
 
-/* ضبط تلقائي لحجم الخط بحيث يبقى كل زر سطرين بالضبط مهما كان عرض الشاشة */
-function fitMenuButtons(){
-  document.querySelectorAll('.menu-btn').forEach(btn => {
-    const spans = btn.querySelectorAll('span');
-    if (spans.length === 0) return;
+/* ================== محاذاة عربية حقيقية بالمدّ (كشيدة) بدل تمديد الفراغات ================== */
+function measureTextWidth(text, font){
+  if (!measureTextWidth._canvas){
+    measureTextWidth._canvas = document.createElement('canvas');
+  }
+  const ctx = measureTextWidth._canvas.getContext('2d');
+  ctx.font = font;
+  return ctx.measureText(text).width;
+}
 
-    // نعيد ضبط الخط للحجم الأساسي المعرف في CSS لهذا العرض قبل القياس
-    btn.style.fontSize = '';
-    let size = parseFloat(getComputedStyle(btn).fontSize) || 11;
-    btn.style.fontSize = size + 'px';
+// الحروف التي لا تتصل بما بعدها (لا يصح وضع مدّ بعدها لأنها لا تتصل أصلا بالحرف التالي)
+const NON_CONNECTING = new Set(['ا','أ','إ','آ','د','ذ','ر','ز','و','ؤ','ة','ى']);
+const ARABIC_LETTER = /[\u0621-\u064A]/;
 
-    let guard = 0;
-    while (guard < 60){
-      let fits = true;
-      spans.forEach(sp => {
-        if (sp.scrollWidth > sp.clientWidth + 0.5){
-          fits = false;
-        }
-      });
-      if (fits || size <= 6.5) break;
-      size -= 0.25;
-      btn.style.fontSize = size + 'px';
-      guard++;
+function insertKashida(text, count){
+  if (count <= 0) return text;
+
+  const positions = [];
+  for (let i = 0; i < text.length - 1; i++){
+    const c = text[i];
+    const next = text[i + 1];
+    if (c === ' ' || next === ' ') continue;
+    if (!ARABIC_LETTER.test(c) || !ARABIC_LETTER.test(next)) continue;
+    if (NON_CONNECTING.has(c)) continue;
+    positions.push(i + 1);
+  }
+
+  if (positions.length === 0) return text;
+
+  const allocation = new Array(positions.length).fill(0);
+  for (let k = 0; k < count; k++){
+    allocation[k % positions.length]++;
+  }
+
+  const combined = positions
+    .map((pos, idx) => ({ pos, n: allocation[idx] }))
+    .sort((a, b) => b.pos - a.pos);
+
+  let result = text;
+  combined.forEach(({ pos, n }) => {
+    if (n > 0){
+      result = result.slice(0, pos) + 'ـ'.repeat(n) + result.slice(pos);
     }
+  });
+  return result;
+}
+
+function applyKashidaJustify(){
+  document.querySelectorAll('.menu-btn').forEach(btn => {
+    const spans = Array.from(btn.querySelectorAll('.menu-plain-line'));
+    if (spans.length !== 2) return;
+
+    spans.forEach(sp => {
+      if (!sp.dataset.original) sp.dataset.original = sp.textContent;
+    });
+
+    const cs = getComputedStyle(spans[0]);
+    const font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const tatweelWidth = measureTextWidth('ـ', font) || 4;
+
+    const widths = spans.map(sp => measureTextWidth(sp.dataset.original, font));
+    const target = Math.max(...widths);
+
+    spans.forEach((sp, idx) => {
+      const original = sp.dataset.original;
+      const deficit = target - widths[idx];
+      if (deficit > 1){
+        const count = Math.max(0, Math.round(deficit / tatweelWidth));
+        sp.textContent = insertKashida(original, count);
+      } else {
+        sp.textContent = original;
+      }
+    });
   });
 }
 
-window.addEventListener('load', fitMenuButtons);
-fitMenuButtons();
+window.addEventListener('load', applyKashidaJustify);
+applyKashidaJustify();
 if (document.fonts && document.fonts.ready){
-  document.fonts.ready.then(fitMenuButtons);
+  document.fonts.ready.then(applyKashidaJustify);
 }
-let menuFitResizeTimer = null;
+let menuKashidaResizeTimer = null;
 window.addEventListener('resize', () => {
-  clearTimeout(menuFitResizeTimer);
-  menuFitResizeTimer = setTimeout(fitMenuButtons, 150);
+  clearTimeout(menuKashidaResizeTimer);
+  menuKashidaResizeTimer = setTimeout(applyKashidaJustify, 150);
 });
 
 function selectMenu(id){
