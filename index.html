@@ -1315,6 +1315,14 @@ function selectMenu(id){
 /* ================== حساب المعدل ================== */
 function renderGpaMenu(container){
   container.innerHTML = '';
+
+  const heading = document.createElement('div');
+  heading.className = 'main-title';
+  heading.style.textAlign = 'center';
+  heading.style.textAlign = 'center';
+  heading.textContent = 'اختر';
+  container.appendChild(heading);
+
   const subtabs = document.createElement('div');
   subtabs.className = 'gpa-subtabs';
 
