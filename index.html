@@ -204,10 +204,16 @@
     min-height:78px;
     width:100%;
   }
-  .menu-btn span{
+  .menu-plain-line{
     display:block;
     width:100%;
     white-space:nowrap;
+  }
+  .kashida-pair{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
   }
   .menu-btn:hover{
     border-color:var(--blue-light);
@@ -735,7 +741,7 @@
     gap:10px;
     font-weight:800;
     color:var(--blue);
-    font-size:12.5px;
+    font-size:13.5px;
     padding-bottom:10px;
     border-bottom:2px solid #eef4fa;
     margin-bottom:8px;
@@ -755,8 +761,14 @@
   }
   .gpa-col-hours, .gpa-col-percent{
     flex:0 0 auto;
-    width:84px;
+    width:92px;
     text-align:center;
+  }
+  .gpa-col-percent{
+    margin-right:26px;
+  }
+  .gpa-cvalue{
+    margin-right:26px;
   }
   .gpa-subject-name{
     flex:1 1 auto;
@@ -765,7 +777,7 @@
     color:#222;
   }
   .gpa-input{
-    width:84px;
+    width:92px;
     flex:0 0 auto;
     text-align:center;
     padding:9px 4px;
@@ -792,7 +804,7 @@
   }
   .gpa-percent-wrap{
     position:relative;
-    width:84px;
+    width:92px;
     flex:0 0 auto;
   }
   .gpa-percent-wrap .gpa-input{
@@ -1168,7 +1180,7 @@ const mainMenuItems = [
 const mainMenuEl = document.getElementById('main-menu');
 mainMenuItems.forEach(item => {
   const btn = document.createElement('button');
-  btn.className = 'menu-btn';
+  btn.className = 'menu-btn kashida-pair';
   if (item.line1 && item.line2){
     const l1 = document.createElement('span');
     l1.className = 'menu-plain-line';
@@ -1234,8 +1246,8 @@ function insertKashida(text, count){
 }
 
 function applyKashidaJustify(){
-  document.querySelectorAll('.menu-btn').forEach(btn => {
-    const spans = Array.from(btn.querySelectorAll('.menu-plain-line'));
+  document.querySelectorAll('.kashida-pair').forEach(group => {
+    const spans = Array.from(group.querySelectorAll('.menu-plain-line'));
     if (spans.length !== 2) return;
 
     spans.forEach(sp => {
@@ -1464,6 +1476,8 @@ function renderCumulativeGpaMenu(container){
   const heading = document.createElement('div');
   heading.className = 'chapter-title';
   heading.textContent = 'املأ الفصول المنجزة فقط';
+  heading.style.marginTop = '18px';
+  heading.style.color = 'var(--blue)';
   container.appendChild(heading);
 
   renderCumulativeTable(container);
@@ -1480,8 +1494,14 @@ function renderCumulativeTable(container){
     header.className = 'gpa-header-row';
     header.innerHTML = `
       <span class="gpa-col-name gpa-year-title">${yearNames[y]}</span>
-      <span class="gpa-col-hours">الساعات المنجزة فصليا</span>
-      <span class="gpa-col-percent">المعدل الفصلي النقطي</span>
+      <span class="gpa-col-hours kashida-pair">
+        <span class="menu-plain-line">الساعات المنجزة</span>
+        <span class="menu-plain-line">فصليا</span>
+      </span>
+      <span class="gpa-col-percent kashida-pair">
+        <span class="menu-plain-line">المعدل الفصلي</span>
+        <span class="menu-plain-line">النقطي</span>
+      </span>
     `;
     yearBlock.appendChild(header);
 
@@ -1501,6 +1521,8 @@ function renderCumulativeTable(container){
     container.appendChild(yearBlock);
     allTables.push(yearBlock);
   }
+
+  applyKashidaJustify();
 
   const calcBtn = document.createElement('button');
   calcBtn.type = 'button';
